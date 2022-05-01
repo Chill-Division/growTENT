@@ -102,6 +102,7 @@ $daysold = date_diff($datetime1, $datetime2);
 	echo "Select new location:<br />
         <select name='new_location' id='new_location'>
         <option value='Nursery'>Nursery</option>
+        <option value='MotherTent'>MotherTent</option>
         <option value='Vege1'>Vege1</option>
         <option value='Vege2'>Vege2</option>
         <option value='Flower1'>Flower1</option>
