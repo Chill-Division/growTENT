@@ -41,7 +41,7 @@ include 'tpl/sql.php';
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
       <p class="content-padded" align="center">Skyman Industries seed to sale medicinal cannabis tracker &amp; record book</p>
-      <p class="content-padded" align="center">Demo stock: 10 flowers, 10 vege, 5 seedlings, 10 seeds, 25lb drying, 12lb cured.</p>
+      <p class="content-padded" align="center">Demo stock: 10 flowers, 10 vege, 5 seedlings, 10 seeds, 25lb drying, 12lb cured (Soon to be just plants).</p>
       <div class="card">
         <ul class="table-view">
           <li class="table-view-cell">
