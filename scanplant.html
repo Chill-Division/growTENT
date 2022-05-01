@@ -1,0 +1,26 @@
+<body>
+<script src="https://skyman.co.nz/whereisweed/html5-qrcode.min.js"></script>
+
+<div style="width: 500px" id="reader"></div>
+        <form action='admin_scanplant.php' method='post'>
+          <input type="text" placeholder="Scan barcode" name="plant_uniqueid" id='plant_uniqueid'>
+</form>
+
+<script>
+var html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader", { fps: 10, qrbox: 250 });
+        
+function onScanSuccess(decodedText, decodedResult) {
+    // Handle on success condition with the decoded text or result.
+    console.log(`Scan result: ${decodedText}`, decodedResult);
+    //var inputF = document.getElementById(“plant_uniqueid”);
+    //inputF.value = ${decodedText};
+
+    // ...
+    html5QrcodeScanner.clear();
+    // ^ this will stop the scanner (video feed) and clear the scan area.
+}
+
+html5QrcodeScanner.render(onScanSuccess);
+</script>
+

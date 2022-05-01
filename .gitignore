@@ -1,0 +1,4 @@
+backups/*
+uploads/*
+tpl/auth.php
+tpl/sql.php

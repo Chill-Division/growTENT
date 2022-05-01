@@ -1,0 +1,53 @@
+pre {
+        overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
+        white-space: pre-wrap; /* css-3 */
+        white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */ /*
+        width: 400px; */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+
+	body
+	{
+		margin: 0px 0px;
+		padding:0px;
+		background-color: rgb(197,204,211);
+		font-family: Verdana,Tahoma,Arial;
+		font-size: 13px;
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+	h1 
+	{
+		font-family: Verdana,Tahoma,Arial;
+		font-size: 13px;
+		color: rgb(76,86,108);
+		margin-left: 10px;
+	}	
+	ul	
+	{
+		text-align: center;
+		padding: 0px;
+		margin: 0px 0px;
+		margin-right: 10px;
+		background-color: white;
+		-webkit-border-radius: 8px;
+		border: 1px solid rgb(217,217,217); 
+	}
+	li
+	{
+		line-height: 17px;
+		list-style-type: none;
+		color:black;
+		border-bottom: 1px rgb(217,217,217) solid;
+		padding: 10px 10px 17px 10px;
+	}
+
+
+a {
+	text-decoration:none;
+	color:#000000;
+	font-family: Verdana,Tahoma,Arial;
+}
