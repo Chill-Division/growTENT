@@ -13,16 +13,16 @@ else {
         }
 
 
-if (isset($_POST['submit'])) && (isset($_POST['confirmedseason'])) && (isset($_POST['new_location'])) {
+if ((isset($_POST['confirmedseason'])) {
 	// Season has been confirmed, and destination, so update the db
 	$confirmedseason = $_POST['confirmedseason'];
 	$new_location = $_POST['new_location'];
 	$sql = "UPDATE inventory SET where_is_it_now='$new_location' WHERE season_id='$confirmedseason'";
-	if ($result = mysqli_query($con, $sql)) {
-          // echo "Returned rows are: " . mysqli_num_rows($result);
-          // Free result set
-          mysqli_free_result($result);
-        }
+		if ($result = mysqli_query($con, $sql)) {
+	          // echo "Returned rows are: " . mysqli_num_rows($result);
+	          // Free result set
+	          mysqli_free_result($result);
+	        }
         mysqli_close($con);
         $savesuccess = 'true';
 	}
