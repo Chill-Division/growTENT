@@ -12,6 +12,15 @@ else {
 	//No season set, show an empty screen. Check isset($season) later
         }
 
+
+if (isset($_POST['submit'])) && (isset($_POST['confirmedseason'])) && (isset($_POST['new_location'])) {
+	// Season has been confirmed, and destination, so update the db
+	$confirmedseason = $_POST['confirmedseason'];
+	$new_location = $_POST['new_location'];
+	$sql="UPDATE inventory SET where_is_it_now='$new_location' WHERE season_id='$confirmedseason'";
+	}
+
+
 /*
 if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
 	$cultivar = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
@@ -108,8 +117,10 @@ $daysold = date_diff($datetime1, $datetime2);
         <option value='Flower1'>Flower1</option>
         <option value='Flower2'>Flower2</option>
         </select>";
-	}
+	// We add a hidden input so we can get the season next time again without asking twice
+	echo "<input type='hidden' id='confirmedseason' name='confirmedseason' value='" . $season . "'>";
 
+	}
 	else {
 	// Guess it's not set so we're going to show you a list of seasons so you can choose one to modify
 	echo "<select name='season' id='season'>\n";
