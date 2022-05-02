@@ -13,7 +13,7 @@ else {
         }
 
 
-if ((isset($_POST['confirmedseason'])) {
+if (isset($_POST['confirmedseason'])) {
 	// Season has been confirmed, and destination, so update the db
 	$confirmedseason = $_POST['confirmedseason'];
 	$new_location = $_POST['new_location'];
