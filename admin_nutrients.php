@@ -36,8 +36,8 @@ $result = mysqli_query($con,$sql);
 $plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Calculate days-old
-$date_of_spawn = $plantresults[0][date_of_spawn];
-$datetime1 = date_create($plantresults[0][date_of_spawn]);
+$date_of_spawn = $plantresults[0]['date_of_spawn'];
+$datetime1 = date_create($plantresults[0]['date_of_spawn']);
 $datetime2 = date_create('2021-12-23');
 $daysold = date_diff($datetime1, $datetime2);
 //echo $interval->format('%R%a days') . "\n";
@@ -100,10 +100,16 @@ $daysold = date_diff($datetime1, $datetime2);
         <div class="input-row">
                 <label>Which Reservoir was dosed</label>
 	        <select name='res_dosed' id='res_dosed'>
-	        <option value='1'>Res 1</option>
-	        <option value='1'>Res 2</option>
-	        <option value='1'>Res 3</option>
-	        <option value='1'>Res 4</option>
+	        <option value='01'>Res 01</option>
+	        <option value='02'>Res 02</option>
+	        <option value='03'>Res 03</option>
+	        <option value='04'>Res 04</option>
+                <option value='05'>Res 05</option>
+                <option value='06'>Res 06</option>
+                <option value='07'>Res 07</option>
+                <option value='08'>Res 08</option>
+                <option value='09'>Res 09</option>
+                <option value='10'>Res 10</option>
 	        </select>
         </div>
         <div class="input-row">
@@ -122,7 +128,7 @@ $daysold = date_diff($datetime1, $datetime2);
 	$result = mysqli_query($con,$sql);
 	$seasonresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	        foreach($seasonresults as $currentrow) {
-		echo "<option value=" . $currentrow[season_id] . ">" . $currentrow[season_id] . "</option>\n";
+		echo "<option value=" . $currentrow['season_id'] . ">" . $currentrow['season_id'] . "</option>\n";
 		}
 	echo "</select>";
 ?>

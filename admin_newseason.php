@@ -60,7 +60,7 @@ $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $currentseason = $row[0]['season_id'];
 
 // Now a little splitting out
-$currentyear = date(Y);
+$currentyear = date('Y');
 $splitseasonarray = explode(".", $currentseason);
 $currentseasonyear = $splitseasonarray[0];
 $currentseasonnum = $splitseasonarray[1];

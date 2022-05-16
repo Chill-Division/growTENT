@@ -41,8 +41,8 @@ $result = mysqli_query($con,$sql);
 $plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Calculate days-old
-$date_of_spawn = $plantresults[0][date_of_spawn];
-$datetime1 = date_create($plantresults[0][date_of_spawn]);
+$date_of_spawn = $plantresults[0]['date_of_spawn'];
+$datetime1 = date_create($plantresults[0]['date_of_spawn']);
 $datetime2 = date_create('2021-12-23');
 $daysold = date_diff($datetime1, $datetime2);
 //echo $interval->format('%R%a days') . "\n";
@@ -105,48 +105,48 @@ $daysold = date_diff($datetime1, $datetime2);
 	<form action='admin_viewplant.php' method='post' class='input-group'>
 	 <div class="input-row">
 	  <label>Cultivar: </label>
-	  <input type="text" placeholder="Cultivar" name="cultivar" readonly <?php if (isset($plant)) { echo "value='" . $plantresults[0][cultivar_name] . "'"; } ?> >
+	  <input type="text" placeholder="Cultivar" name="cultivar" readonly <?php if (isset($plant)) { echo "value='" . $plantresults[0]['cultivar_name'] . "'"; } ?> >
 	 </div>
          <div class="input-row">
           <label>Spawn date: </label>
-          <input type="text" placeholder="Date of spawn" name="date_of_spawn" readonly value="<?php echo $plantresults[0][date_of_spawn] . " (" . $daysold->format('%a days old') . ")";   ?>">
+          <input type="text" placeholder="Date of spawn" name="date_of_spawn" readonly value="<?php echo $plantresults[0]['date_of_spawn'] . " (" . $daysold->format('%a days old') . ")";   ?>">
 	 </div>
          <div class="input-row">
           <label>Last moved: </label>
-          <input type="text" placeholder="Never moved" name="date_of_lastmove" readonly value="<?php echo $plantresults[0][date_of_lastmove];?>">
+          <input type="text" placeholder="Never moved" name="date_of_lastmove" readonly value="<?php echo $plantresults[0]['date_of_lastmove'];?>">
          </div>
          <div class="input-row">
           <label>Location: </label>
-          <input type="text" placeholder="Current location" name="where_is_it_now" readonly value="<?php echo $plantresults[0][where_is_it_now];?>">
+          <input type="text" placeholder="Current location" name="where_is_it_now" readonly value="<?php echo $plantresults[0]['where_is_it_now'];?>">
 	 </div>
 
          <div class="input-row">
           <label>Season: </label>
-          <input type="text" placeholder="Season" name="season" readonly value="<?php echo $plantresults[0][season_id];?>">
+          <input type="text" placeholder="Season" name="season" readonly value="<?php echo $plantresults[0]['season_id'];?>">
          </div>
          <div class="input-row">
           <label>Plant #: </label>
-          <input type="text" placeholder="Plant number" name="plant_num" readonly value="<?php echo $plantresults[0][plant_num];?>">
+          <input type="text" placeholder="Plant number" name="plant_num" readonly value="<?php echo $plantresults[0]['plant_num'];?>">
          </div>
          <div class="input-row">
           <label>Facility: </label>
-          <input type="text" placeholder="Facility of cultivation" name="faceilityname" readonly value="<?php echo $plantresults[0][facilityname];?>">
+          <input type="text" placeholder="Facility of cultivation" name="faceilityname" readonly value="<?php echo $plantresults[0]['facilityname'];?>">
          </div>
          <div class="input-row">
           <label>Plant UID: </label>
-          <input type="text" placeholder="Plant Unique ID" name="plant_uniqueid" readonly value="<?php echo $plantresults[0][plant_uniqueid];?>">
+          <input type="text" placeholder="Plant Unique ID" name="plant_uniqueid" readonly value="<?php echo $plantresults[0]['plant_uniqueid'];?>">
          </div>
          <div class="input-row">
           <label>Plant alive? </label>
-          <input type="text" placeholder="Is the plant still aliive" name="is_alive" readonly <?php if (isset($plant)) { echo "value='"; if ($plantresults[0][is_alive] == '1') {echo "Yes";} else {echo "No";} echo "'"; } ?> >
+          <input type="text" placeholder="Is the plant still aliive" name="is_alive" readonly <?php if (isset($plant)) { echo "value='"; if ($plantresults[0]['is_alive'] == '1') {echo "Yes";} else {echo "No";} echo "'"; } ?> >
          </div>
          <div class="input-row">
           <label>Current state: </label>
-          <input type="text" placeholder="Current state of plant" name="current_state" value="<?php echo $plantresults[0][current_state];?>">
+          <input type="text" placeholder="Current state of plant" name="current_state" value="<?php echo $plantresults[0]['current_state'];?>">
          </div>
 
 
-	  <input type="hidden" name="id" value="<?php echo $plantresults[0][id]; ?>">
+	  <input type="hidden" name="id" value="<?php echo $plantresults[0]['id']; ?>">
 	  <button class="btn btn-positive btn-block" type="submit" name="submit" value="save">Save</button>
 	</form>
 	<?php //print_r($plantresults);	?>

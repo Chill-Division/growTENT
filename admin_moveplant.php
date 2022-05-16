@@ -52,8 +52,8 @@ $result = mysqli_query($con,$sql);
 $plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Calculate days-old
-$date_of_spawn = $plantresults[0][date_of_spawn];
-$datetime1 = date_create($plantresults[0][date_of_spawn]);
+$date_of_spawn = $plantresults[0]['date_of_spawn'];
+$datetime1 = date_create($plantresults[0]['date_of_spawn']);
 $datetime2 = date_create('2021-12-23');
 $daysold = date_diff($datetime1, $datetime2);
 //echo $interval->format('%R%a days') . "\n";
@@ -135,7 +135,7 @@ $daysold = date_diff($datetime1, $datetime2);
 	$result = mysqli_query($con,$sql);
 	$seasonresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	        foreach($seasonresults as $currentrow) {
-		echo "<option value=" . $currentrow[season_id] . ">" . $currentrow[season_id] . "</option>\n";
+		echo "<option value=" . $currentrow['season_id'] . ">" . $currentrow['season_id'] . "</option>\n";
 		}
 	echo "</select>";
 	}
