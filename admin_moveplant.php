@@ -111,7 +111,7 @@ $daysold = date_diff($datetime1, $datetime2);
 	echo "Showing " . $season . ", found " . count($seasonresults) . " plants";
 	echo "  <ul class='table-view'>\n";
         foreach($seasonresults as $currentrow) {
-		echo "    <li class='table-view-cell'>Plant " . $currentrow[plant_num] . ", currently in " . $currentrow[where_is_it_now] . "</li>\n";
+		echo "    <li class='table-view-cell'>Plant " . $currentrow['plant_num'] . ", currently in " . $currentrow['where_is_it_now'] . "</li>\n";
 		//print_r($currentrow);
 		}
 	echo "</ul>\n";
