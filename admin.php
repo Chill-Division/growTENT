@@ -82,7 +82,7 @@ include 'tpl/sql.php';
           </li>
           <li class="table-view-cell">
             <a class="navigate-right" href="admin_lodgepestcontrol.php">
-              <strong># Lodge pest control action</strong>
+              <strong>Lodge pest control action</strong>
             </a>
           </li>
           <li class="table-view-divider"></li>
