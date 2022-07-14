@@ -6,7 +6,7 @@ include 'tpl/sql.php';
 <html>
   <head>
     <meta charset="utf-8">
-    <title>growTENT :: Admin Portal</title>
+    <title>growTENT - Tracking Everything Non-Trivial :: Admin Portal</title>
 
     <!-- Sets initial viewport load and disables zooming  -->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -32,7 +32,7 @@ include 'tpl/sql.php';
        Log out
      </button></a>
 
-      <h1 class="title">growTENT - Tracking Everything Non-Trivial</h1>
+      <h1 class="title">growTENT</h1>
     </header>
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
