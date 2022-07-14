@@ -13,4 +13,3 @@ if (mysqli_connect_errno()) {
   exit();
 }
 ?>
-
