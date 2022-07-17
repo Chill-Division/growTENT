@@ -11,8 +11,8 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
 	$sql="INSERT INTO cultivars (cultivar_name, expected_thc, expected_cbd, expected_flowertime) VALUES('$cultivar','$thc','$cbd','$flowertime')";
 	if ($result = mysqli_query($con, $sql)) {
 	  // echo "Returned rows are: " . mysqli_num_rows($result);
-	  // Free result set
-	  mysqli_free_result($result);
+	} else {
+           echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
         //$cultivarid = mysqli_insert_id();
 	mysqli_close($con);
@@ -57,7 +57,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
       <p class="content-padded" align="center">Add a new cultivar to be utilized in the facility</p>
-<?php if($savesuccess=='true'){ echo "<p class='content-padded'>New cultivar saved successfully</p>";} ?>
+<?php if($savesuccess=='true'){ echo "<p class='content-padded'>New cultivar saved successfully: $cultivar, $thc / $cbd, $flowertime </p>";} ?>
       <div class="card">
 	<form action='admin_addcultivar.php' method='post'>
 	  <input type="text" placeholder="Cultivar name" name="cultivar" maxlength="128">

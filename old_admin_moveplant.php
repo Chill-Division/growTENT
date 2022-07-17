@@ -1,8 +1,7 @@
 <?php
 include 'tpl/auth.php';
 include 'tpl/sql.php';
-$plantid = $_GET['plantid'];
-/*
+
 if (isset($_GET['s'])) {
         $season = $_GET['s'];
         }
@@ -29,7 +28,7 @@ if (isset($_POST['confirmedseason'])) {
 	}
 
 
-
+/*
 if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
 	$cultivar = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
 	$thc = filter_var($_POST['thc'], FILTER_SANITIZE_STRING);
@@ -98,18 +97,49 @@ $daysold = date_diff($datetime1, $datetime2);
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
       <p class="content-padded" align="center">Move plants between areas within the Facility</p>
-	<?php if($savesuccess=='true'){ echo "<p class='content-padded'>Plant saved successfully</p>";} ?>
+<?php if($savesuccess=='true'){ echo "<p class='content-padded'>Plant saved successfully</p>";} ?>
       <div class="card">
 	<form action='admin_moveplant.php' method='post' class='input-group'>
-	Select new location:<br />
+<?php if (isset($season)) {
+	// Season is set so show them JUST a list of plants from that season
+	// If it's not set, then show them the list of seasons to modify
+	// We do the SQL first so that we can get a count
+        $sql = "SELECT * from inventory where is_alive='1' AND season_id='$season' order by plant_num asc";
+        $result = mysqli_query($con,$sql);
+        $seasonresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	echo "Showing " . $season . ", found " . count($seasonresults) . " plants";
+	echo "  <ul class='table-view'>\n";
+        foreach($seasonresults as $currentrow) {
+		echo "    <li class='table-view-cell'>Plant " . $currentrow['plant_num'] . ", currently in " . $currentrow['where_is_it_now'] . "</li>\n";
+		//print_r($currentrow);
+		}
+	echo "</ul>\n";
+	echo "Select new location:<br />
         <select name='new_location' id='new_location'>
-<?php
-        foreach($rooms as $currentroom) {
-			echo "        <option value='" . $currentroom . "'>" . $currentroom . "</option>";
-			}
+        <option value='Nursery'>Nursery</option>
+        <option value='MotherTent'>MotherTent</option>
+        <option value='Vege1'>Vege1</option>
+        <option value='Vege2'>Vege2</option>
+        <option value='Flower1'>Flower1</option>
+        <option value='Flower2'>Flower2</option>
+        </select>";
+	// We add a hidden input so we can get the season next time again without asking twice
+	echo "<input type='hidden' id='confirmedseason' name='confirmedseason' value='" . $season . "'>";
+
+	}
+	else {
+	// Guess it's not set so we're going to show you a list of seasons so you can choose one to modify
+	echo "<select name='season' id='season'>\n";
+	$sql = "SELECT * from inventory where is_alive='1' group by season_id order by season_id desc";
+	$result = mysqli_query($con,$sql);
+	$seasonresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	        foreach($seasonresults as $currentrow) {
+		echo "<option value=" . $currentrow['season_id'] . ">" . $currentrow['season_id'] . "</option>\n";
+		}
+	echo "</select>";
+	}
 ?>
-	</select>
-<?php echo "<input type='hidden' id='plantid' name='plantid' value='" . $plantid . "'>"; ?>
 	  <button class="btn btn-positive btn-block" type="submit" name="submit" value="save">Submit</button>
 	</form>
       </div>

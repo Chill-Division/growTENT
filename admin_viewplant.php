@@ -138,7 +138,7 @@ $daysold = date_diff($datetime1, $datetime2);
          </div>
          <div class="input-row">
           <label>Plant alive? </label>
-          <input type="text" placeholder="Is the plant still aliive" name="is_alive" readonly <?php if (isset($plant)) { echo "value='"; if ($plantresults[0]['is_alive'] == '1') {echo "Yes";} else {echo "No";} echo "'"; } ?> >
+          <input type="text" placeholder="Is the plant still alive" name="is_alive" readonly <?php if (isset($plant)) { echo "value='"; if ($plantresults[0]['is_alive'] == '1') {echo "Yes";} else {echo "No";} echo "'"; } ?> >
          </div>
          <div class="input-row">
           <label>Current state: </label>
@@ -151,6 +151,11 @@ $daysold = date_diff($datetime1, $datetime2);
 	</form>
 	<?php //print_r($plantresults);	?>
         <button class="btn btn-positive btn-block">Reprint label</button>
+        <form action='admin_moveplant.php' method='post' class='input-group'>
+          <input type="hidden" name="plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
+          <button class="btn btn-positive btn-block" type="submit" name="moveplant" value="moveplant">Move plant</button>
+        </form>
+
 	<img src="qrcodes/<?php echo $plant; ?>.png" />
       </div>
     </div>
