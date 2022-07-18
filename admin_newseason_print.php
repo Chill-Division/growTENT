@@ -33,13 +33,13 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
         //print_r($row);
         echo "<br />\n";
 
-	if ($newplants >= 500) { $newplants = 10; }
+	if ($newplants > 500) { $newplants = 10; }
 
 	// variables needed for the inserts
 	$date = date('Y-m-d');
 	$current_row_for_insert = 0;
 	$current_row_on_page = 0;
-	while ($current_row_for_insert < $newplants) {
+	while ($current_row_for_insert =< $newplants) {
 		// Make a UniqueID for the plant
 		$plant_uniqueid = uniqid('p', true);
 
