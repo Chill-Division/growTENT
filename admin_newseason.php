@@ -112,17 +112,13 @@ if($currentyear>$currentseasonyear) {
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
       <p class="content-padded" align="center">Add a new cultivar to be utilized in the facility</p>
-<?php if($savesuccess=='true'){ echo "<p class='content-padded'>New season begun!</p>";} ?>
       <div class="card">
 	<form action='admin_newseason_print.php' method='post'>
 	<label>Facility for cultivation:</label>
 <?php
-	$sql = "SELECT * FROM facilities";
-	$result = mysqli_query($con,$sql);
-	$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	echo "  <select name='facility'>\n";
-	foreach($row as $facility) {
-	    echo "<option value='" . $facility['id'] . "'>" . $facility['facilityname'] . "</option>\n";
+	foreach($facilities as $currentfacility) {
+	    echo "<option value='" . $currentfacility . "'>" . $currentfacility . "</option>\n";
 	}
 	echo "</select><br />Cultivar: \n";
         $sql = "SELECT * FROM cultivars";

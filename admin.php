@@ -106,26 +106,16 @@ include 'tpl/sql.php';
           </li>
 	  <li class="table-view-divider"></li>
           <li class="table-view-cell">
-            <a class="navigate-right" href="admin_addcultivar.php">
-              <strong>Add new cultivar</strong>
-            </a>
-          </li>
-          <li class="table-view-cell">
             <a class="navigate-right" href="admin_addstarters.php">
               <strong># Add new seeds / mothers to stock</strong>
             </a>
           </li>
           <li class="table-view-cell">
             <a class="navigate-right" href="admin_newseason.php">
-              <strong>Start new season</strong>
+              <strong>Start new season from seed</strong>
             </a>
           </li>
           <li class="table-view-divider"></li>
-          <li class="table-view-cell">
-            <a class="navigate-right" href="admin_newfacility.php">
-              <strong>Set up new facility</strong>
-            </a>
-          </li>
           <li class="table-view-divider"></li>
           <li class="table-view-cell">
             <a class="navigate-right" href="admin_lodgedailysecuritycheck.php">

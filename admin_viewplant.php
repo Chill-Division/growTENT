@@ -147,15 +147,22 @@ $daysold = date_diff($datetime1, $datetime2);
 
 
 	  <input type="hidden" name="id" value="<?php echo $plantresults[0]['id']; ?>">
+          <label>Add more notes: </label>
+	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="5"></textarea>
 	  <button class="btn btn-positive btn-block" type="submit" name="submit" value="save">Save</button>
 	</form>
-	<?php //print_r($plantresults);	?>
+	<?php
+	//print_r($plantresults);
+	?>
         <button class="btn btn-positive btn-block">Reprint label</button>
         <form action='admin_moveplant.php' method='post' class='input-group'>
           <input type="hidden" name="plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
           <button class="btn btn-positive btn-block" type="submit" name="moveplant" value="moveplant">Move plant</button>
         </form>
-
+        <form action='admin_takecuttings.php' method='post' class='input-group'>
+          <input type="hidden" name="plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
+          <button class="btn btn-positive btn-block" type="submit" name="takecuttings" value="takecuttings">Take cuttings</button>
+        </form>
 	<img src="qrcodes/<?php echo $plant; ?>.png" />
       </div>
     </div>
