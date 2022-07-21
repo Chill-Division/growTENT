@@ -46,9 +46,9 @@ $cultivar = $_POST['cultivar'];
 	<div class="card">
 <?php if (isset($mother_plantid)) {
 	// The content can go in here
-	echo "<form action='admin_moveplant.php' method='post' class='input-group'>";
+	echo "<form action='admin_takecuttings_print.php' method='post' class='input-group'>";
 	echo "Looks like you want to take some $cultivar cuttings from $mother_plantid.<br />How many would you like?";
-	echo "<input type='text' placeholder='Number of cuttings' name='newplants' maxlength='3'>\n";
+	echo "<input type='text' placeholder='Number of cuttings' name='newplants' maxlength='2'>\n";
 	// Add the hidden types so we know what to submit
 	echo "<input type='hidden' name='mother_plantid' value='" . $mother_plantid . "'>\n";
 	echo "<input type='hidden' name='cultivar' value='" . $cultivar . "'>\n";

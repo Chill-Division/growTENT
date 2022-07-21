@@ -8,38 +8,24 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	$newplants = 1;
 
 	// Pull the details from the submitted form
-	$cultivarid = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
-	$facilityid = filter_var($_POST['facility'], FILTER_SANITIZE_STRING);
+	$cultivar = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
+	$mother_plantid = filter_var($_POST['mother_plantid'], FILTER_SANITIZE_STRING);
 	$newplants = filter_var($_POST['newplants'], FILTER_SANITIZE_STRING);
-	$seasonid = filter_var($_POST['seasonid'], FILTER_SANITIZE_STRING);
 
-	// Before we go any further, we want to get the cultivar human readable name
-        $sql = "SELECT * FROM cultivars where id='$cultivarid'";
+	// Small sanity check
+	if ($newplants > 99) { $newplants = 1; }
+
+        // Before we go any further, we want to get the current facility
+        $sql = "SELECT * FROM inventory where plant_uniqueid='$mother_plantid'";
         $result = mysqli_query($con,$sql);
         $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	$cultivarname = $row[0]['cultivar_name'];
-        //echo "<br />\n";
-	//echo $cultivarname;
-	//print_r($row);
-	//echo "<br />\n";
-
-	// And the facility
-        $sql = "SELECT * FROM facilities where id='$facilityid'";
-        $result = mysqli_query($con,$sql);
-        $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	$facilityname = $row[0]['facilityname'];
-        //echo "<br />\n";
-        //echo $facilityname;
-        //print_r($row);
-        echo "<br />\n";
-
-	if ($newplants > 500) { $newplants = 10; }
+        $facility = $row[0]['facilityname'];
 
 	// variables needed for the inserts
 	$date = date('Y-m-d');
 	$current_row_for_insert = 0;
 	$current_row_on_page = 0;
-	while ($current_row_for_insert =< $newplants) {
+	while ($current_row_for_insert < $newplants) {
 		// Make a UniqueID for the plant
 		$plant_uniqueid = uniqid('p', true);
 
@@ -58,7 +44,9 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 		$current_row_for_insert++;
 		$current_row_on_page++;
 
-		$sql="INSERT INTO inventory (facilityid, date_of_spawn, plant_uniqueid, season_id, plant_num, where_is_it_now, current_state, cultivar) VALUES ('$facilityid','$date','$plant_uniqueid',$seasonid,'$current_row_for_insert','Nursery','In the early life stages','$cultivarid')";
+		//$sql="INSERT INTO inventory (facilityid, date_of_spawn, plant_uniqueid, season_id, plant_num, where_is_it_now, current_state, cultivar) VALUES ('$facilityid','$date','$plant_uniqueid',$seasonid,'$current_row_for_insert','Nursery','In the early life stages','$cultivarid')";
+		$sql="INSERT INTO inventory (facilityname, date_of_spawn, plant_uniqueid, where_is_it_now, current_state, cultivar) VALUES ('$facility', '$date', '$plant_uniqueid', 'Clone dome', 'In the early stages of life', '$cultivar')";
+
 		//if (mysqli_query($conn, $sql)) {
 	        if ($result = mysqli_query($con, $sql)) {
 
@@ -68,13 +56,13 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 		echo "<table style='font-family: monospace; padding: 0;'>
   <tr>
     <td rowspan='5'><img src='" . $pngAbsoluteFilePath . "' width='80' height='80' /></td>
-    <td>Plant #" . $current_row_for_insert . " - " . $date . "</td>
+    <td>Plant #" . $current_row_for_insert . "</td>
   </tr>
   <tr>
-    <td>Season: " . $seasonid . "</td>
+    <td>Clone date: " . $date . "</td>
   </tr>
   <tr>
-    <td>" . $cultivarname . "</td>
+    <td>" . $cultivar . "</td>
   </tr>
   <tr>
     <td>" . $plant_uniqueid . "</td>
