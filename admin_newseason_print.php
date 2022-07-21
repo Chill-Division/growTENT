@@ -68,15 +68,23 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 		echo "<table style='font-family: monospace; padding: 0;'>
   <tr>
     <td rowspan='5'><img src='" . $pngAbsoluteFilePath . "' width='80' height='80' /></td>
-    <td>Plant #" . $current_row_for_insert . " - " . $date . "</td>
+    <td>Plant #" . $current_row_for_insert . "</td>
+    <td style='padding-left: 30px; padding-right: 30px'> | </td>
+    <td rowspan='5'><img src='" . $pngAbsoluteFilePath . "' width='80' height='80' /></td>
+    <td>Plant #" . $current_row_for_insert . "</td>
   </tr>
   <tr>
-    <td>Season: " . $seasonid . "</td>
-  </tr>
+    <td>Clone date: " . $date . "</td>
+    <td style='padding-left: 30px; padding-right: 30px'> | </td>
+    <td>Clone date: " . $date . "</td>  </tr>
   <tr>
+    <td>" . $cultivarname . "</td>
+    <td style='padding-left: 30px; padding-right: 30px'> | </td>
     <td>" . $cultivarname . "</td>
   </tr>
   <tr>
+    <td>" . $plant_uniqueid . "</td>
+    <td style='padding-left: 30px; padding-right: 30px'> | </td>
     <td>" . $plant_uniqueid . "</td>
   </tr>
 </table><hr />";
