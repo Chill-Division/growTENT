@@ -101,4 +101,5 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	}
 	$savesuccess = 'true';
 }
+echo "<a href='admin.php'>Return home</a>";
 ?>
