@@ -12,7 +12,9 @@ if ($_GET['logout'] == 'true') {
         }
 
 // Check if we should be letting them in, or not
-$pass = $_POST['pass'];
+if (isset($_POST['pass'])) {
+	$pass = $_POST['pass'];
+	}
 if (in_array($pass, $validpass)) {
         // User is trying to login, so let's remember that
         $authenticated = 'true';

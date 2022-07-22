@@ -21,8 +21,17 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
         $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
         $facility = $row[0]['facilityname'];
 
-	// variables needed for the inserts
+        // First we're going to add some notes
 	$date = date('Y-m-d');
+        $sql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$mother_plantid', '$date', 'Took $newplants cuttings')";
+        if ($result = mysqli_query($con, $sql)) {
+        // Success
+        } else {
+        // failure?
+        }
+
+
+	// variables needed for the inserts
 	$current_row_for_insert = 0;
 	$current_row_on_page = 0;
 	while ($current_row_for_insert < $newplants) {
@@ -45,7 +54,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 		$current_row_on_page++;
 
 		//$sql="INSERT INTO inventory (facilityid, date_of_spawn, plant_uniqueid, season_id, plant_num, where_is_it_now, current_state, cultivar) VALUES ('$facilityid','$date','$plant_uniqueid',$seasonid,'$current_row_for_insert','Nursery','In the early life stages','$cultivarid')";
-		$sql="INSERT INTO inventory (facilityname, date_of_spawn, plant_uniqueid, where_is_it_now, current_state, cultivar) VALUES ('$facility', '$date', '$plant_uniqueid', 'Clone dome', 'In the early stages of life', '$cultivar')";
+		$sql="INSERT INTO inventory (facilityname, date_of_spawn, plant_uniqueid, where_is_it_now, current_state, cultivar, mother_uniqueid) VALUES ('$facility', '$date', '$plant_uniqueid', 'Clone dome', 'In the early stages of life', '$cultivar', '$mother_plantid')";
 
 		//if (mysqli_query($conn, $sql)) {
 	        if ($result = mysqli_query($con, $sql)) {

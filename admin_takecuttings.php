@@ -46,6 +46,7 @@ $cultivar = $_POST['cultivar'];
 	<div class="card">
 <?php if (isset($mother_plantid)) {
 	// The content can go in here
+	echo "<div class='content-padded'>\n";
 	echo "<form action='admin_takecuttings_print.php' method='post' class='input-group'>";
 	echo "Looks like you want to take some $cultivar cuttings from $mother_plantid.<br />How many would you like?";
 	echo "<input type='text' placeholder='Number of cuttings' name='newplants' maxlength='2'>\n";
@@ -54,6 +55,7 @@ $cultivar = $_POST['cultivar'];
 	echo "<input type='hidden' name='cultivar' value='" . $cultivar . "'>\n";
         echo "<button class='btn btn-positive btn-block' type='submit' name='submit' value='save'>Take cuttings</button>\n";
 	echo "</form>\n";
+	echo "</div>\n";
 	}
 	else {
 	echo "<p>You haven't specified a plant and shouldn't be here.<br />Please contact your administrator and let them know how this happened, so that can be fixed.</p>";

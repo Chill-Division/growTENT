@@ -17,6 +17,24 @@ else {
 	//No plant set, show an empty screen. Check isset($plant) later
         }
 
+// Check to see if we've got notes to save
+if (strlen($_POST['savenotes'] > 1)) {
+	// We've got something submitted, so check the length of newnotes
+	$newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
+	if (strlen($newnotes > 1 )) {
+		$date = date('Y-m-d');
+		$sql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$newnotes')";
+		if ($result = mysqli_query($con, $sql)) {
+			// echo "Returned rows are: " . mysqli_num_rows($result);
+			// Free result set
+			//mysqli_free_result($result);
+			$savesuccess = 'true';
+			}
+		}
+	else {
+		$savesuccess = 'failed';
+		}
+	}
 /*
 if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
 	$cultivar = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
@@ -147,14 +165,11 @@ $daysold = date_diff($datetime1, $datetime2);
          </div>
 
 
-	  <input type="hidden" name="id" value="<?php echo $plantresults[0]['id']; ?>">
-          <label>Add more notes: </label>
-	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="5"></textarea>
-	  <button class="btn btn-positive btn-block" type="submit" name="submit" value="save">Save</button>
+	  <input type="hidden" name="plant_uniqueid" value="<?php echo $plant; ?>">
+          <div class='content-padded'><label>Add more notes: </label>
+	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="5"></textarea></div>
+	  <button class="btn btn-positive btn-block" type="submit" name="savenotes" value="savenotes">Save notes</button>
 	</form>
-	<?php
-	//print_r($plantresults);
-	?>
         <button class="btn btn-positive btn-block">Reprint label</button>
         <form action='admin_moveplant.php' method='post' class='input-group'>
           <input type="hidden" name="plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
@@ -162,10 +177,18 @@ $daysold = date_diff($datetime1, $datetime2);
         </form>
         <form action='admin_takecuttings.php' method='post' class='input-group'>
           <input type="hidden" name="mother_plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
-	  <input type="hidden" name="cultivar" value="<?php echo $plantresults[0]['cultivar_name']; ?>">
+	  <input type="hidden" name="cultivar" value="<?php echo $plantresults[0]['cultivar']; ?>">
           <button class="btn btn-positive btn-block" type="submit" name="takecuttings" value="takecuttings">Take cuttings</button>
         </form>
-	<img src="qrcodes/<?php echo $plant; ?>.png" />
+	<?php if (isset($plant)) {
+	$sql="SELECT * from plant_notes where plant_uniqueid='$plant' order by id desc";
+	$result = mysqli_query($con,$sql);
+	$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	foreach($row as $currentrow) {
+		echo "<div class='content-padded'><p><strong>" . $currentrow['note_date'] . ":</strong> " . nl2br($currentrow['notes']) . "</p></div>";
+		}
+	}
+?>
       </div>
     </div>
   </body>
