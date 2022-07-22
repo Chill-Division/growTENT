@@ -121,12 +121,13 @@ if($currentyear>$currentseasonyear) {
 	    echo "<option value='" . $currentfacility . "'>" . $currentfacility . "</option>\n";
 	}
 	echo "</select><br />Cultivar: \n";
-        $sql = "SELECT * FROM cultivars";
+/*        $sql = "SELECT * FROM cultivars";
         $result = mysqli_query($con,$sql);
-        $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $row = mysqli_fetch_all($result, MYSQLI_ASSOC);*/
         echo "  <select name='cultivar'>\n";
-        foreach($row as $cultivar) {
-            echo "<option value='" . $cultivar['id'] . "'>" . $cultivar['cultivar_name'] . "</option>\n";
+        foreach($cultivars as $cultivar) {
+	    echo "<option value='$cultivar'>$cultivar</option>\n";
+            //echo "<option value='" . $cultivar['id'] . "'>" . $cultivar['cultivar_name'] . "</option>\n";
         }
         echo "</select>\n";
 ?>

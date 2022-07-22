@@ -9,15 +9,17 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 
 	// Pull the details from the submitted form
 	$cultivarid = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
+        $cultivar = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
 	$facilityid = filter_var($_POST['facility'], FILTER_SANITIZE_STRING);
 	$newplants = filter_var($_POST['newplants'], FILTER_SANITIZE_STRING);
 	$seasonid = filter_var($_POST['seasonid'], FILTER_SANITIZE_STRING);
 
 	// Before we go any further, we want to get the cultivar human readable name
-        $sql = "SELECT * FROM cultivars where id='$cultivarid'";
+        /*$sql = "SELECT * FROM cultivars where id='$cultivarid'";
         $result = mysqli_query($con,$sql);
         $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	$cultivarname = $row[0]['cultivar_name'];
+	$cultivarname = $row[0]['cultivar_name'];*/
+	$cultivarname = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
         //echo "<br />\n";
 	//echo $cultivarname;
 	//print_r($row);
@@ -39,7 +41,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	$date = date('Y-m-d');
 	$current_row_for_insert = 0;
 	$current_row_on_page = 0;
-	while ($current_row_for_insert =< $newplants) {
+	while ($current_row_for_insert < $newplants) {
 		// Make a UniqueID for the plant
 		$plant_uniqueid = uniqid('p', true);
 
@@ -58,7 +60,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 		$current_row_for_insert++;
 		$current_row_on_page++;
 
-		$sql="INSERT INTO inventory (facilityid, date_of_spawn, plant_uniqueid, season_id, plant_num, where_is_it_now, current_state, cultivar) VALUES ('$facilityid','$date','$plant_uniqueid',$seasonid,'$current_row_for_insert','Nursery','In the early life stages','$cultivarid')";
+		$sql="INSERT INTO inventory (date_of_spawn, plant_uniqueid, season_id, plant_num, where_is_it_now, current_state, cultivar, mother_uniqueid) VALUES ('$date','$plant_uniqueid',$seasonid,'$current_row_for_insert','Nursery','In the early life stages','$cultivarname', 'Seed')";
 		//if (mysqli_query($conn, $sql)) {
 	        if ($result = mysqli_query($con, $sql)) {
 
@@ -89,7 +91,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
   </tr>
 </table><hr />";
 //		echo $current_row_on_page . "<br />";
-		if (($current_row_on_page / 7) == 1) {
+		if (($current_row_on_page / 10) == 1) {
 		// We have 7 so now we pagebreak
 			echo "<p style='page-break-after: always;'>&nbsp;</p>";
 			$current_row_on_page = 0;

@@ -10,7 +10,7 @@ $result = mysqli_query($con,$sql);
 $cultivars = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
-if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
+/*if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	// We define newplants as a low number as a fallback in case of issues
 	$newplants = 1;
 
@@ -42,6 +42,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	}
 	$savesuccess = 'true';
 }
+*/
 ?>
 
 
@@ -85,12 +86,13 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 <?php
 	// LazyJo says we'll need to also INNER JOIN on Facility in the future
 	// But that's a problem for future-me
-	$sql = "SELECT cultivars.cultivar_name, inventory.id, inventory.plant_uniqueid, inventory.season_id, inventory.where_is_it_now, inventory.plant_num FROM inventory INNER JOIN cultivars ON inventory.cultivar=cultivars.id ORDER BY inventory.id DESC LIMIT 500";
+	// $sql = "SELECT cultivars.cultivar_name, inventory.id, inventory.plant_uniqueid, inventory.season_id, inventory.where_is_it_now, inventory.plant_num FROM inventory INNER JOIN cultivars ON inventory.cultivar=cultivars.id ORDER BY inventory.id DESC LIMIT 500";
+	$sql = "SELECT * FROM inventory WHERE is_alive='1' ORDER BY ID DESC";
 	$result = mysqli_query($con,$sql);
 	$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	echo "  <ul class='table-view'>\n";
 	foreach($row as $currentrow) {
-		echo "  <li class='table-view-cell'>\n<a href='admin_viewplant.php?p=" . $currentrow['plant_uniqueid'] . "' class='navigate-right'>" . $currentrow['cultivar_name'] . ", Season " . $currentrow['season_id'] . ", Location: " . $currentrow['where_is_it_now'] . ", Plant # " . $currentrow['plant_num'] . ", Unique ID: " . $currentrow['plant_uniqueid'] . "</a></li>";
+		echo "  <li class='table-view-cell'>\n<a href='admin_viewplant.php?p=" . $currentrow['plant_uniqueid'] . "' class='navigate-right'>" . $currentrow['cultivar'] . ", Season " . $currentrow['season_id'] . ", Location: " . $currentrow['where_is_it_now'] . ", Plant # " . $currentrow['plant_num'] . ", Unique ID: " . $currentrow['plant_uniqueid'] . "</a></li>";
 //		echo "  <li class='table-view-cell'>" . $currentrow[cultivar_name] . " " . $currentrow[plant_uniqueid] . "<a href='admin_viewplant.php?p=" . $currentrow[plant_uniqueid] . "' class='navigate-right'>View</a></li>";
 	}
 	echo "</ul><br />\n";

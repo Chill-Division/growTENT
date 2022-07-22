@@ -35,15 +35,16 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
 	$savesuccess = 'true';
         }
 */
-//        $sql = "SELECT * from inventory where plant_uniqueid = '$plant'";
-$sql = "SELECT facilities.facilityname, cultivars.cultivar_name, inventory.* FROM inventory INNER JOIN cultivars ON inventory.cultivar=cultivars.id INNER JOIN facilities ON inventory.facilityid=facilities.id WHERE inventory.plant_uniqueid = '$plant'";
+        $sql = "SELECT * from inventory where plant_uniqueid = '$plant'";
+//$sql = "SELECT facilities.facilityname, cultivars.cultivar_name, inventory.* FROM inventory INNER JOIN cultivars ON inventory.cultivar=cultivars.id INNER JOIN facilities ON inventory.facilityid=facilities.id WHERE inventory.plant_uniqueid = '$plant'";
 $result = mysqli_query($con,$sql);
 $plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Calculate days-old
 $date_of_spawn = $plantresults[0]['date_of_spawn'];
 $datetime1 = date_create($plantresults[0]['date_of_spawn']);
-$datetime2 = date_create('2021-12-23');
+//$datetime2 = date('Y-m-d');
+$datetime2 = date_create("now",timezone_open("Pacific/Auckland"));
 $daysold = date_diff($datetime1, $datetime2);
 //echo $interval->format('%R%a days') . "\n";
 
@@ -105,7 +106,7 @@ $daysold = date_diff($datetime1, $datetime2);
 	<form action='admin_viewplant.php' method='post' class='input-group'>
 	 <div class="input-row">
 	  <label>Cultivar: </label>
-	  <input type="text" placeholder="Cultivar" name="cultivar" readonly <?php if (isset($plant)) { echo "value='" . $plantresults[0]['cultivar_name'] . "'"; } ?> >
+	  <input type="text" placeholder="Cultivar" name="cultivar" readonly <?php if (isset($plant)) { echo "value='" . $plantresults[0]['cultivar'] . "'"; } ?> >
 	 </div>
          <div class="input-row">
           <label>Spawn date: </label>

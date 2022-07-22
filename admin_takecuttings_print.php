@@ -78,8 +78,10 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
   </tr>
 </table><hr />";
 //		echo $current_row_on_page . "<br />";
-		if (($current_row_on_page / 7) == 1) {
-		// We have 7 so now we pagebreak
+/*		if (($current_row_on_page / 7) == 1) {
+		// We have 7 so now we pagebreak */
+              if (($current_row_on_page / 10) == 1) {
+                // We have 10 so now we pagebreak, previously only 7 fit but now we set height=80px for QRcode
 			echo "<p style='page-break-after: always;'>&nbsp;</p>";
 			$current_row_on_page = 0;
 			}
