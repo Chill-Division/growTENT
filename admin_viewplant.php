@@ -19,6 +19,7 @@ else if (isset($_POST['plantid'])){
 	}
 else {
 	//No plant set, show an empty screen. Check isset($plant) later
+	echo "Much failure - No plant set! Contact your administrator and tell them how you managed to do this so it can be fixed plzkthx";
 	exit();
         }
 
@@ -47,7 +48,7 @@ if (strlen($_POST['savenotes'] > 1)) {
 if (isset($_POST['new_location'])) {
 	$new_location = $_POST['new_location'];
 	// First we update the inventory location
-	$sql="UPDATE inventory SET where_is_it_now='$new_location' WHERE plant_uniqueid='$plant'";
+	$sql="UPDATE inventory SET where_is_it_now='$new_location',date_of_lastmove='$date' WHERE plant_uniqueid='$plant'";
         if ($result = mysqli_query($con, $sql)) {
 		$savesuccess = 'true';
                 }
@@ -69,6 +70,14 @@ $date_of_spawn = $plantresults[0]['date_of_spawn'];
 $datetime1 = date_create($plantresults[0]['date_of_spawn']);
 $datetime2 = date_create("now",timezone_open("Pacific/Auckland"));
 $daysold = date_diff($datetime1, $datetime2);
+
+// Also see if we've got a date of when it was last moved
+if (isset($plantresults[0]['date_of_lastmove'])) {
+	$date_of_lastmove = $plantresults[0]['date_of_lastmove'];
+	}
+else {
+	$date_of_lastmove = "Never moved";
+	}
 
 // Check if the QR code exists given we don't have all the seasons with them yet
 // I'm not sure why I'm doing this in an if statement but will come back and look later
@@ -134,7 +143,7 @@ $fileName = $plant . ".png";
 	 </div>
          <div class="input-row">
           <label>Last moved: </label>
-          <input type="text" placeholder="Never moved" name="date_of_lastmove" readonly value="<?php echo $plantresults[0]['date_of_lastmove'];?>">
+          <input type="text" placeholder="Never moved" name="date_of_lastmove" readonly value="<?php echo $date_of_lastmove ?>">
          </div>
          <div class="input-row">
           <label>Location: </label>
