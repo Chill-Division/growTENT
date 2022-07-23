@@ -1,67 +1,18 @@
 <?php
 include 'tpl/auth.php';
 include 'tpl/sql.php';
-$plantid = $_GET['plantid'];
-/*
-if (isset($_GET['s'])) {
-        $season = $_GET['s'];
-        }
-else if (isset($_POST['season'])){
-        $season = $_POST['season'];
-        }
-else {
-	//No season set, show an empty screen. Check isset($season) later
-        }
 
-
-if (isset($_POST['confirmedseason'])) {
-	// Season has been confirmed, and destination, so update the db
-	$confirmedseason = $_POST['confirmedseason'];
-	$new_location = $_POST['new_location'];
-	$sql = "UPDATE inventory SET where_is_it_now='$new_location' WHERE season_id='$confirmedseason'";
-		if ($result = mysqli_query($con, $sql)) {
-	          // echo "Returned rows are: " . mysqli_num_rows($result);
-	          // Free result set
-	          mysqli_free_result($result);
-	        }
-        mysqli_close($con);
-        $savesuccess = 'true';
+if (isset($_GET['plantid'])) {
+	$plantid = $_GET['plantid'];
 	}
 
-
-
-if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
-	$cultivar = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
-	$thc = filter_var($_POST['thc'], FILTER_SANITIZE_STRING);
-	$cbd = filter_var($_POST['cbd'], FILTER_SANITIZE_STRING);
-	$flowertime = filter_var($_POST['flowertime'], FILTER_SANITIZE_STRING);
-
-	$sql="INSERT INTO cultivars (cultivar_name, expected_thc, expected_cbd, expected_flowertime) VALUES('$cultivar','$thc','$cbd','$flowertime')";
-	if ($result = mysqli_query($con, $sql)) {
-	  // echo "Returned rows are: " . mysqli_num_rows($result);
-	  // Free result set
-	  mysqli_free_result($result);
+if (isset($_POST['plantid'])) {
+	$plantid = $_POST['plantid'];
 	}
-        //$cultivarid = mysqli_insert_id();
-	mysqli_close($con);
-	$savesuccess = 'true';
-        }
-*/
-//        $sql = "SELECT * from inventory where plant_uniqueid = '$plant'";
-$sql = "SELECT facilities.facilityname, cultivars.cultivar_name, inventory.* FROM inventory INNER JOIN cultivars ON inventory.cultivar=cultivars.id INNER JOIN facilities ON inventory.facilityid=facilities.id WHERE inventory.plant_uniqueid = '$plant'";
-$result = mysqli_query($con,$sql);
-$plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// Calculate days-old
-$date_of_spawn = $plantresults[0]['date_of_spawn'];
-$datetime1 = date_create($plantresults[0]['date_of_spawn']);
-$datetime2 = date_create('2021-12-23');
-$daysold = date_diff($datetime1, $datetime2);
-//echo $interval->format('%R%a days') . "\n";
+// Process / flow is scan the plant, select the new location, go back to showing the plant
 
 ?>
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -100,16 +51,16 @@ $daysold = date_diff($datetime1, $datetime2);
       <p class="content-padded" align="center">Move plants between areas within the Facility</p>
 	<?php if($savesuccess=='true'){ echo "<p class='content-padded'>Plant saved successfully</p>";} ?>
       <div class="card">
-	<form action='admin_moveplant.php' method='post' class='input-group'>
+	<form action='admin_viewplant.php' method='post' class='input-group'>
 	Select new location:<br />
         <select name='new_location' id='new_location'>
 <?php
         foreach($rooms as $currentroom) {
-			echo "        <option value='" . $currentroom . "'>" . $currentroom . "</option>";
+			echo "        <option value='" . $currentroom . "'>" . $currentroom . "</option>\n";
 			}
 ?>
 	</select>
-<?php echo "<input type='hidden' id='plantid' name='plantid' value='" . $plantid . "'>"; ?>
+<?php echo "<input type='hidden' id='plantid' name='plantid' value='" . $plantid . "'>\n"; ?>
 	  <button class="btn btn-positive btn-block" type="submit" name="submit" value="save">Submit</button>
 	</form>
       </div>

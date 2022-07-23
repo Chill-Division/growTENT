@@ -13,16 +13,23 @@ else if (isset($_POST['plant_uniqueid'])){
 	// We've come from the plant scanner
 	$plant = $_POST['plant_uniqueid'];
 	}
+else if (isset($_POST['plantid'])){
+	// Using this in the admin_moveplant
+	$plant = $_POST['plantid'];
+	}
 else {
 	//No plant set, show an empty screen. Check isset($plant) later
+	exit();
         }
+
+// We set the date at the start here coz there's a fair to high chance we'll need it for our SQL
+$date = date('Y-m-d');
 
 // Check to see if we've got notes to save
 if (strlen($_POST['savenotes'] > 1)) {
 	// We've got something submitted, so check the length of newnotes
 	$newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
 	if (strlen($newnotes > 1 )) {
-		$date = date('Y-m-d');
 		$sql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$newnotes')";
 		if ($result = mysqli_query($con, $sql)) {
 			// echo "Returned rows are: " . mysqli_num_rows($result);
@@ -35,41 +42,38 @@ if (strlen($_POST['savenotes'] > 1)) {
 		$savesuccess = 'failed';
 		}
 	}
-/*
-if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
-	$cultivar = filter_var($_POST['cultivar'], FILTER_SANITIZE_STRING);
-	$thc = filter_var($_POST['thc'], FILTER_SANITIZE_STRING);
-	$cbd = filter_var($_POST['cbd'], FILTER_SANITIZE_STRING);
-	$flowertime = filter_var($_POST['flowertime'], FILTER_SANITIZE_STRING);
 
-	$sql="INSERT INTO cultivars (cultivar_name, expected_thc, expected_cbd, expected_flowertime) VALUES('$cultivar','$thc','$cbd','$flowertime')";
-	if ($result = mysqli_query($con, $sql)) {
-	  // echo "Returned rows are: " . mysqli_num_rows($result);
-	  // Free result set
-	  mysqli_free_result($result);
+// Check to see if we've set a new location and need to save it
+if (isset($_POST['new_location'])) {
+	$new_location = $_POST['new_location'];
+	// First we update the inventory location
+	$sql="UPDATE inventory SET where_is_it_now='$new_location' WHERE plant_uniqueid='$plant'";
+        if ($result = mysqli_query($con, $sql)) {
+		$savesuccess = 'true';
+                }
+
+	// Second we add a note to the history of the plant
+	$sql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant moved to $new_location')";
+        if ($result = mysqli_query($con, $sql)) {
+		$savesuccess = 'true';
+                }
 	}
-        //$cultivarid = mysqli_insert_id();
-	mysqli_close($con);
-	$savesuccess = 'true';
-        }
-*/
-        $sql = "SELECT * from inventory where plant_uniqueid = '$plant'";
-//$sql = "SELECT facilities.facilityname, cultivars.cultivar_name, inventory.* FROM inventory INNER JOIN cultivars ON inventory.cultivar=cultivars.id INNER JOIN facilities ON inventory.facilityid=facilities.id WHERE inventory.plant_uniqueid = '$plant'";
+
+// Now we look up the *latest* data (just in case we've updated it)
+$sql = "SELECT * from inventory where plant_uniqueid = '$plant'";
 $result = mysqli_query($con,$sql);
 $plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 // Calculate days-old
 $date_of_spawn = $plantresults[0]['date_of_spawn'];
 $datetime1 = date_create($plantresults[0]['date_of_spawn']);
-//$datetime2 = date('Y-m-d');
 $datetime2 = date_create("now",timezone_open("Pacific/Auckland"));
 $daysold = date_diff($datetime1, $datetime2);
-//echo $interval->format('%R%a days') . "\n";
-
 
 // Check if the QR code exists given we don't have all the seasons with them yet
-	if (isset($plant)) {
-                $fileName = $plant . ".png";
+// I'm not sure why I'm doing this in an if statement but will come back and look later
+if (isset($plant)) {
+$fileName = $plant . ".png";
                 $pngAbsoluteFilePath = 'qrcodes/' . $fileName;
                 if (!file_exists($pngAbsoluteFilePath)) {
                         QRcode::png($plant, $pngAbsoluteFilePath);
@@ -78,10 +82,8 @@ $daysold = date_diff($datetime1, $datetime2);
                 //echo 'File already generated! We can use this cached file to speed up site on common codes!';
                 }
 	}
-
+// Hopefully by now we are done and are ready to show what's on the web page!
 ?>
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -185,7 +187,7 @@ $daysold = date_diff($datetime1, $datetime2);
 	$result = mysqli_query($con,$sql);
 	$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	foreach($row as $currentrow) {
-		echo "<div class='content-padded'><p><strong>" . $currentrow['note_date'] . ":</strong> " . nl2br($currentrow['notes']) . "</p></div>";
+		echo "<div class='content-padded'><p><strong>" . $currentrow['note_date'] . ":</strong> " . nl2br($currentrow['notes']) . "</p></div>\n";
 		}
 	}
 ?>
