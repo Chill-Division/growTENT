@@ -1,6 +1,7 @@
 <?php
 include 'tpl/auth.php';
 include 'tpl/sql.php';
+
 ?>
 <!DOCTYPE html>
 <html>
