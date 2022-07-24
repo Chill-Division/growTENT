@@ -65,6 +65,9 @@ $sql = "SELECT * from inventory where plant_uniqueid = '$plant'";
 $result = mysqli_query($con,$sql);
 $plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+// Update the cultivar
+$cultivar = $plantresults[0]["cultivar"];
+
 // Calculate days-old
 $date_of_spawn = $plantresults[0]['date_of_spawn'];
 $datetime1 = date_create($plantresults[0]['date_of_spawn']);
@@ -145,7 +148,7 @@ else {
 	<form action='admin_viewplant.php' method='post' class='input-group'>
 	 <div class="input-row">
 	  <label>Cultivar: </label>
-	  <input type="text" placeholder="Cultivar" name="cultivar" readonly <?php if (isset($plant)) { echo "value='" . $plantresults[0]['cultivar'] . "'"; } ?> >
+	  <input type="text" placeholder="Cultivar" name="cultivar" readonly value="<?php if (isset($plant)) { echo $cultivar; } ?>">
 	 </div>
          <div class="input-row">
           <label>Spawn date: </label>
@@ -192,16 +195,31 @@ else {
 	  <button class="btn btn-positive btn-block" type="submit" name="savenotes" value="savenotes">Save notes</button>
 	</form>
         <button class="btn btn-positive btn-block">Reprint label</button>
-        <form action='admin_moveplant.php' method='post' class='input-group'>
-          <input type="hidden" name="plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
-          <button class="btn btn-positive btn-block" type="submit" name="moveplant" value="moveplant"<?php if($isalive=='No'){ echo " disabled";} ?>>Move plant</button>
+<?php
+if($isalive=='Yes'){
+	// Plant is alive so give the option to harvest it
+	echo "<table width='100%'><tbody width='100%'><tr width='100%'>
+	<td width='50%' style='padding: 10px;'><form action='admin_moveplant.php' method='post' class='input-group'>
+          <input type='hidden' name='plantid' value='$plant'>
+          <button class='btn btn-positive btn-block' type='submit' name='moveplant' value='moveplant'>Move plant</button>
         </form>
-        <form action='admin_takecuttings.php' method='post' class='input-group'>
-          <input type="hidden" name="mother_plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
-	  <input type="hidden" name="cultivar" value="<?php echo $plantresults[0]['cultivar']; ?>">
-          <button class="btn btn-positive btn-block" type="submit" name="takecuttings" value="takecuttings"<?php if($isalive=='No'){ echo " disabled";} ?>>Take cuttings</button>
+	<td width='50%' style='padding: 10px;'><form action='admin_takecuttings.php' method='post' class='input-group'>
+          <input type='hidden' name='mother_plantid' value='$plant'>
+          <input type='hidden' name='cultivar' value='$cultivar'>
+          <button class='btn btn-positive btn-block' type='submit' name='takecuttings' value='takecuttings'>Take cuttings</button>
         </form>
-	<?php if (isset($plant)) {
+	</tr></tbody></table>
+
+	<table width='100%'><tbody width='100%'><tr width='100%'>
+	<td width='50%' style='padding: 10px;'><button class='btn btn-negative btn-block'>Dispose of plant</button></td>
+	<td width='50%' style='padding: 10px;'><button class='btn btn-negative btn-block'>Harvest plant</button></td>
+	</tr></tbody></table>";
+	}
+?>
+
+	<?php
+	// Why did I put this in an if statement? There must have been a reason - Come back to it later
+	if (isset($plant)) {
 	$sql="SELECT * from plant_notes where plant_uniqueid='$plant' order by id desc";
 	$result = mysqli_query($con,$sql);
 	$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
