@@ -65,7 +65,8 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	        if ($result = mysqli_query($con, $sql)) {
 
 		//  echo "New record created successfully";
-		// So now we can make the label
+		// So now we can make the label(s). Start with a HR
+		echo "<hr />";
 		// For that we're going to want a table
 		echo "<table style='font-family: monospace; padding: 0;'>
   <tr>
@@ -92,8 +93,8 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 </table><hr />";
 //		echo $current_row_on_page . "<br />";
 		if (($current_row_on_page / 10) == 1) {
-		// We have 7 so now we pagebreak
-			echo "<p style='page-break-after: always;'>&nbsp;</p>";
+		// We have 7 so now we pagebreak and add a starting HR
+			echo "<p style='page-break-after: always;'>&nbsp;</p><hr />";
 			$current_row_on_page = 0;
 			}
 		} else {

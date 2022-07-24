@@ -60,7 +60,8 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	        if ($result = mysqli_query($con, $sql)) {
 
 		//  echo "New record created successfully";
-		// So now we can make the label
+                // So now we can make the label(s). Start with a HR
+                echo "<hr />";
 		// For that we're going to want a table
 		echo "<table style='font-family: monospace; padding: 0;'>
   <tr>
@@ -90,8 +91,9 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 /*		if (($current_row_on_page / 7) == 1) {
 		// We have 7 so now we pagebreak */
               if (($current_row_on_page / 10) == 1) {
-                // We have 10 so now we pagebreak, previously only 7 fit but now we set height=80px for QRcode
-			echo "<p style='page-break-after: always;'>&nbsp;</p>";
+                // We have 10 so now we pagebreak and add a starting HR
+		// previously only 7 fit but now we set height=80px for QRcode
+			echo "<p style='page-break-after: always;'>&nbsp;</p><hr />";
 			$current_row_on_page = 0;
 			}
 		} else {

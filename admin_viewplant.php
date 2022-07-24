@@ -91,6 +91,15 @@ $fileName = $plant . ".png";
                 //echo 'File already generated! We can use this cached file to speed up site on common codes!';
                 }
 	}
+
+// Is the plant alive or dead? If it's dead, show a warning coz... well they shouldn't be changing stuff
+if ($plantresults[0]['is_alive'] == '1') {
+	$isalive = "Yes";
+	}
+else {
+	$isalive = "No";
+	}
+
 // Hopefully by now we are done and are ready to show what's on the web page!
 ?>
 <!DOCTYPE html>
@@ -130,6 +139,7 @@ $fileName = $plant . ".png";
     <div class="content">
       <p class="content-padded">View plant details and update individual values</p>
       <?php if($savesuccess=='true'){ echo "<p class='content-padded'>Plant saved successfully</p>";} ?>
+      <?php if($isalive=='No'){ echo "<p class='content-padded' align='center'><font color='red'><strong>This plant is not alive. Changes disabled.</strong></font></p>";} ?>
       <?php //if (isset ($plant)) { QRcode::png('some'); } ?>
       <div class="card">
 	<form action='admin_viewplant.php' method='post' class='input-group'>
@@ -184,12 +194,12 @@ $fileName = $plant . ".png";
         <button class="btn btn-positive btn-block">Reprint label</button>
         <form action='admin_moveplant.php' method='post' class='input-group'>
           <input type="hidden" name="plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
-          <button class="btn btn-positive btn-block" type="submit" name="moveplant" value="moveplant">Move plant</button>
+          <button class="btn btn-positive btn-block" type="submit" name="moveplant" value="moveplant"<?php if($isalive=='No'){ echo " disabled";} ?>>Move plant</button>
         </form>
         <form action='admin_takecuttings.php' method='post' class='input-group'>
           <input type="hidden" name="mother_plantid" value="<?php echo $plantresults[0]['plant_uniqueid']; ?>">
 	  <input type="hidden" name="cultivar" value="<?php echo $plantresults[0]['cultivar']; ?>">
-          <button class="btn btn-positive btn-block" type="submit" name="takecuttings" value="takecuttings">Take cuttings</button>
+          <button class="btn btn-positive btn-block" type="submit" name="takecuttings" value="takecuttings"<?php if($isalive=='No'){ echo " disabled";} ?>>Take cuttings</button>
         </form>
 	<?php if (isset($plant)) {
 	$sql="SELECT * from plant_notes where plant_uniqueid='$plant' order by id desc";
