@@ -1,5 +1,6 @@
-backups/*
+backups/*.gz
+backups/*.tar
 uploads/*
-qrcodes/*
+qrcodes/*.png
 tpl/auth.php
 tpl/sql.php
