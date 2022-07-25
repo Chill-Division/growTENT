@@ -197,7 +197,7 @@ else {
         <button class="btn btn-positive btn-block">Reprint label</button>
 <?php
 if($isalive=='Yes'){
-	// Plant is alive so give the option to harvest it
+	// Plant is alive so give the option to move, take cuttings, dispose of, or harvest it
 	echo "<table width='100%'><tbody width='100%'><tr width='100%'>
 	<td width='50%' style='padding: 10px;'><form action='admin_moveplant.php' method='post' class='input-group'>
           <input type='hidden' name='plantid' value='$plant'>
@@ -212,7 +212,9 @@ if($isalive=='Yes'){
 
 	<table width='100%'><tbody width='100%'><tr width='100%'>
 	<td width='50%' style='padding: 10px;'><button class='btn btn-negative btn-block'>Dispose of plant</button></td>
-	<td width='50%' style='padding: 10px;'><button class='btn btn-negative btn-block'>Harvest plant</button></td>
+	<td width='50%' style='padding: 10px;'><form action='admin_harvest.php' method='post' class='input-group'>
+		<input type='hidden' name='plantid' value='$plant'>
+		<button class='btn btn-negative btn-block' type='submit' name='harvestplant' value='harvestplant'>Harvest plant</button></form></td>
 	</tr></tbody></table>";
 	}
 ?>
