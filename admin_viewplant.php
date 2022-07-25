@@ -191,7 +191,7 @@ else {
 
 	  <input type="hidden" name="plant_uniqueid" value="<?php echo $plant; ?>">
           <div class='content-padded'><label>Add more notes: </label>
-	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="5"></textarea></div>
+	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="3"></textarea></div>
 	  <button class="btn btn-positive btn-block" type="submit" name="savenotes" value="savenotes">Save notes</button>
 	</form>
         <button class="btn btn-positive btn-block">Reprint label</button>
