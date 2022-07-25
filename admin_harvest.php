@@ -78,7 +78,8 @@ $cultivar = $plantresults[0]["cultivar"];
 <?php if($savesuccess=='true'){ echo "<p class='content-padded' align='center'><font color='red'>Saved!</font></p>";} ?>
       <div class="card">
 <?php if($_POST['submitweight']!='submitweight'){
-	echo"<form action='admin_harvest.php' method='post' class='input-group'>
+	echo"<p class='content-padded' align='center'><strong>NOTE: This will mark the plant as harvested / no longer alive</strong></p>
+	<form action='admin_harvest.php' method='post' class='input-group'>
          <div class='input-row'>
           <label>Cultivar: </label>
           <input type='text' placeholder='Cultivar' name='cultivar' readonly value='$cultivar'>
@@ -93,8 +94,12 @@ $cultivar = $plantresults[0]["cultivar"];
 	</form>";
 	}
 else {
-	// Plant is harvested so ask what they want to do instead
-        echo "<table width='100%'><tbody width='100%'><tr width='100%'>
+	// Plant is harvested so ask what they want to do instead, optional warning
+	if ($willdry == 'on') {
+		// They've said they'll keep a dry weight so show the alert
+		echo "<p class='content-padded' align='center'><strong>NOTE: You MUST keep the tag for the plant to add the dry weight afterwards.</strong></p>";
+		}
+	echo "	<table width='100%'><tbody width='100%'><tr width='100%'>
         <td width='50%' style='padding: 10px;'><a href='admin_scanplant.php'><button class='btn btn-primary btn-block'>Scan another</button></a></td>
         <td width='50%' style='padding: 10px;'><form action='admin_viewplant.php' method='post' class='input-group'>
                 <input type='hidden' name='plantid' value='$plant'>

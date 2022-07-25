@@ -187,8 +187,35 @@ else {
           <label>Current state: </label>
           <input type="text" placeholder="Current state of plant" name="current_state" value="<?php echo $plantresults[0]['current_state'];?>">
          </div>
+<?php
+// We wanna add some details of the harvest IF it's available
+if (isset($plantresults[0]['harvest_ww'])) {
+	$ww = $plantresults[0]['harvest_ww'];
+	echo "         <div class='input-row'>
+          <label>Wet weight (g): </label>
+          <input type='text' placeholder='0g' name='wet_weight' value='$ww'>
+         </div>";
+	}
+if (isset($plantresults[0]['harvest_dw'])) {
+        $dw = $plantresults[0]['harvest_dw'];
+	if ($dw > 1) {
+	// This means the dry-weight is set and ready to be shown
+	        echo "         <div class='input-row'>
+	          <label>Dry weight (g): </label>
+	          <input type='text' placeholder='0g' name='dry_weight' value='$dw'>
+	         </div>";
+		}
+	else {
+	// This means the dry-weight is pending still so show a button to set it
+                echo "         <div class='input-row'>
+                  <label>Dry weight (g): </label>
+                  <a href='admin_harvest_dw.php'><button class='btn btn-primary' style='margin-top: 3px;'>Submit dry weight</button></a></li>
+                </div>";
 
+		}
+        }
 
+?>
 	  <input type="hidden" name="plant_uniqueid" value="<?php echo $plant; ?>">
           <div class='content-padded'><label>Add more notes: </label>
 	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="3"></textarea></div>
