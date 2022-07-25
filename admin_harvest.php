@@ -87,14 +87,19 @@ $cultivar = $plantresults[0]["cultivar"];
           <label>Plant UID: </label>
           <input type='text' placeholder='Plant Unique ID' name='plantid' id='plantid' readonly value='$plant'>
          </div>
-	<div class='input-row'><label>Wet weight (g)</label><input type='text' name='ww' id='ww' label='wetwight' placeholder='2450'></div>
+	<div class='input-row'><label>Wet weight (g)</label><input type='number' name='ww' id='ww' label='wetwight' placeholder='2450'></div>
 	<div class='input-row'><label>Dry weight later?</label><input type='checkbox' name='willdry' id='willdry' label='willdry' style='margin-top: 10px'></div>
 	<button class='btn btn-positive btn-block' type='submit' name='submitweight' value='submitweight'>Submit weight</button>
 	</form>";
 	}
 else {
-	print_r($_POST);
-	print_r($updatesql);
+	// Plant is harvested so ask what they want to do instead
+        echo "<table width='100%'><tbody width='100%'><tr width='100%'>
+        <td width='50%' style='padding: 10px;'><a href='admin_scanplant.php'><button class='btn btn-primary btn-block'>Scan another</button></a></td>
+        <td width='50%' style='padding: 10px;'><form action='admin_viewplant.php' method='post' class='input-group'>
+                <input type='hidden' name='plantid' value='$plant'>
+                <button class='btn btn-positive btn-block' type='submit' name='viewplant' value='viewplant'>Back to plant view</button></form></td>
+        </tr></tbody></table>";
 	}
 ?>
       </div>
