@@ -9,8 +9,15 @@ $date = date('Y-m-d');
 if($_POST['submitdisposal']=='submitdisposal'){
         // Grab the disposal reason
         $disposal_reason = filter_var($_POST['disposal_reason'], FILTER_SANITIZE_STRING);
+	$newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
 	// The first thing we want to do is add a note for the plant so it'll show up in the View Plant history
-        $updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
+	// If we have custom notes we want to include those too
+	if (strlen($_POST['newnotes'] > 1)) {
+		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason || $newnotes')";
+		}
+        else {
+		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
+		}
         // Now we submit the initial disposal note for the plant into the database
         if ($result = mysqli_query($con, $updatesql)) {
                 $savesuccess = 'true';
