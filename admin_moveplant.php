@@ -52,14 +52,14 @@ if (isset($_POST['plantid'])) {
 	<?php if($savesuccess=='true'){ echo "<p class='content-padded'>Plant saved successfully</p>";} ?>
       <div class="card">
 	<form action='admin_viewplant.php' method='post' class='input-group'>
-	Select new location:<br />
-        <select name='new_location' id='new_location'>
+	<p class='content-padded' Select new location:<br />
+        <select name='new_location' id='new_location' style='margin-top: 3px; margin-bottom: 3px;'>
 <?php
         foreach($rooms as $currentroom) {
 			echo "        <option value='" . $currentroom . "'>" . $currentroom . "</option>\n";
 			}
 ?>
-	</select>
+	</select></p>
 <?php echo "<input type='hidden' id='plantid' name='plantid' value='" . $plantid . "'>\n"; ?>
 	  <button class="btn btn-positive btn-block" type="submit" name="submit" value="save">Submit</button>
 	</form>

@@ -10,5 +10,6 @@ $facilities = array("64HSV", "Demo Facility");
 $rooms = array("Mother1", "Mother2", "Nursery1", "Vege1", "Vege2", "Flower1", "Flower2");
 $treatments = array("Mite-E", "Mite-A", "Hyper-Mite", "Aphidius", "Ladybirds", "Foliar - Custom mix 1");
 $cultivars = array("Amnesia Fast", "White Widow", "White Rhino", "Maine Coon Cat", "Peyote Zkittlez", "Color of Space", "Rare Dankness", "Serious Kush", "Future #1", "Captain Future", "Apricot Oreoz", "Big Bazooka", "Tart Pops");
+$disposalreasons = array("Nutrient issues", "Root issues", "Bugs", "Plant dried out or lack of water", "Mother plant became too big", "Mother plant too old", "Other physical accident", "Other - Specified in notes");
 
 ?>
