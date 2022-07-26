@@ -95,11 +95,11 @@ if($_POST['submitdisposal']!='submitdisposal'){
 echo "<form action='admin_dispose.php' method='post' class='input-group'>
          <div class='input-row'>
           <label>Cultivar: </label>
-          <input type='text' placeholder='Cultivar' name='cultivar' readonly value='<?php echo $cultivar; ?>'>
+          <input type='text' placeholder='Cultivar' name='cultivar' readonly value='$cultivar'>
          </div>
          <div class='input-row'>
           <label>Plant UID: </label>
-          <input type='text' placeholder='Plant Unique ID' name='plantid' id='plantid' readonly value='<?php echo $plant; ?>'>
+          <input type='text' placeholder='Plant Unique ID' name='plantid' id='plantid' readonly value='$plant'>
          </div>
 	<p class='content-padded'>Select disposal reason: <br />
         <select name='disposal_reason' id='disposal_reason' style='margin-top: 3px; margin-bottom: 3px;'>";
