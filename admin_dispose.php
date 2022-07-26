@@ -13,7 +13,7 @@ if($_POST['submitdisposal']=='submitdisposal'){
 	// The first thing we want to do is add a note for the plant so it'll show up in the View Plant history
 	// If we have custom notes we want to include those too
 	if (strlen($_POST['newnotes'] > 1)) {
-		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason - $newnotes')";
+		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason. $newnotes')";
 		}
         else {
 		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
