@@ -68,10 +68,26 @@ $plantresults = mysqli_fetch_all($result, MYSQLI_ASSOC);
 // Update the cultivar
 $cultivar = $plantresults[0]["cultivar"];
 
-// Calculate days-old
+// Calculate days-old and the language to describe it
 $date_of_spawn = $plantresults[0]['date_of_spawn'];
 $datetime1 = date_create($plantresults[0]['date_of_spawn']);
-$datetime2 = date_create("now",timezone_open("Pacific/Auckland"));
+if (strlen($plantresults[0]['date_of_harvest'] > 1)) {
+	// If the plant was harvested ages ago we don't wanna use todays date
+	$date_of_harvest = $plantresults[0]['date_of_harvest'];
+	$datetime2 = date_create($plantresults[0]['date_of_harvest']);
+	$age_language = " at harvest";
+	}
+else if (strlen($plantresults[0]['date_of_disposal'] > 1)) {
+	// If it was disposed of we wanna know that too
+	$date_of_disposal = $plantresults[0]['date_of_disposal'];
+	$datetime2 = date_create($plantresults[0]['date_of_disposal']);
+	$age_language = " at disposal";
+	}
+else {
+	// But if it wasn't harvested then show todays date
+	$datetime2 = date_create("now",timezone_open("Pacific/Auckland"));
+	$age_language = "old";
+	}
 $daysold = date_diff($datetime1, $datetime2);
 
 // Also see if we've got a date of when it was last moved

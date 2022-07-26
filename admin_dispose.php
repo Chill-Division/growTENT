@@ -13,7 +13,7 @@ if($_POST['submitdisposal']=='submitdisposal'){
 	// The first thing we want to do is add a note for the plant so it'll show up in the View Plant history
 	// If we have custom notes we want to include those too
 	if (strlen($_POST['newnotes'] > 1)) {
-		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason || $newnotes')";
+		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason - $newnotes')";
 		}
         else {
 		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
@@ -23,29 +23,10 @@ if($_POST['submitdisposal']=='submitdisposal'){
                 $savesuccess = 'true';
                 }
 	// Then we do it again, setting the Inventory status so it's marked as no longer being alive
-        $updatesql="UPDATE inventory SET current_state='Disposed of - $disposal_reason',is_alive='0' WHERE plant_uniqueid='$plant'";
+        $updatesql="UPDATE inventory SET current_state='Disposed of - $disposal_reason',is_alive='0',date_of_disposal='$date' WHERE plant_uniqueid='$plant'";
 	// Then pop it into the DB
         if ($result = mysqli_query($con, $updatesql)) {
                 $savesuccess = 'true';
-                }
-        }
-
-
-// Now we check to see if we've been given additional notes to save, submit it to db if-so:
-if (strlen($_POST['newnotes'] > 1)) {
-        // We've got something submitted, so check the length of newnotes
-        $newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
-        if (strlen($newnotes > 1 )) {
-                $sql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$newnotes')";
-                if ($result = mysqli_query($con, $sql)) {
-                        // echo "Returned rows are: " . mysqli_num_rows($result);
-                        // Free result set
-                        //mysqli_free_result($result);
-                        $savesuccess = 'true';
-                        }
-                }
-        else {
-                $savesuccess = 'failed';
                 }
         }
 
