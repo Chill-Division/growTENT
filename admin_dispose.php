@@ -7,14 +7,14 @@ $plant = $_POST['plantid'];
 $date = date('Y-m-d');
 
 if($_POST['submitdisposal']=='submitdisposal'){
+        // Grab the disposal reason
+        $disposal_reason = filter_var($_POST['disposal_reason'], FILTER_SANITIZE_STRING);
 	// The first thing we want to do is add a note for the plant so it'll show up in the View Plant history
-        $updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of')";
+        $updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
         // Now we submit the initial disposal note for the plant into the database
         if ($result = mysqli_query($con, $updatesql)) {
                 $savesuccess = 'true';
                 }
-	// Grab the disposal reason
-	$disposal_reason = filter_var($_POST['disposal_reason'], FILTER_SANITIZE_STRING);
 	// Then we do it again, setting the Inventory status so it's marked as no longer being alive
         $updatesql="UPDATE inventory SET current_state='Disposed of - $disposal_reason',is_alive='0' WHERE plant_uniqueid='$plant'";
 	// Then pop it into the DB
@@ -90,8 +90,9 @@ $cultivar = $plantresults[0]["cultivar"];
       <p class="content-padded" align='center'>Disposal of complete plants and removing them from the registry</p>
 <?php if($savesuccess=='true'){ echo "<p class='content-padded' align='center'><font color='red'>Saved!</font></p>";} ?>
       <div class="card">
-	<p>This is where the content goes.</p>
-        <form action='admin_dispose.php' method='post' class='input-group'>
+<?php
+if($_POST['submitdisposal']!='submitdisposal'){
+echo "<form action='admin_dispose.php' method='post' class='input-group'>
          <div class='input-row'>
           <label>Cultivar: </label>
           <input type='text' placeholder='Cultivar' name='cultivar' readonly value='<?php echo $cultivar; ?>'>
@@ -101,18 +102,29 @@ $cultivar = $plantresults[0]["cultivar"];
           <input type='text' placeholder='Plant Unique ID' name='plantid' id='plantid' readonly value='<?php echo $plant; ?>'>
          </div>
 	<p class='content-padded'>Select disposal reason: <br />
-        <select name='disposal_reason' id='disposal_reason' style='margin-top: 3px; margin-bottom: 3px;'>
-<?php
+        <select name='disposal_reason' id='disposal_reason' style='margin-top: 3px; margin-bottom: 3px;'>";
+
         foreach($disposalreasons as $currentreason) {
                         echo "        <option value='" . $currentreason . "'>" . $currentreason . "</option>\n";
                         }
-?>
-        </select>
+echo "        </select>
 	 </p>
          <div class='content-padded'><label>Additional notes: </label>
-          <textarea name="newnotes" id="newnotes" maxlength="2048" rows="3"></textarea></div>
+          <textarea name='newnotes' id='newnotes' maxlength='2048' rows='3'></textarea></div>
         <button class='btn btn-positive btn-block' type='submit' name='submitdisposal' value='submitdisposal'>Submit disposal</button>
-      </div>
+      </div>";
+	}
+
+else {
+        echo "  <table width='100%'><tbody width='100%'><tr width='100%'>
+        <td width='50%' style='padding: 10px;'><a href='admin_scanplant.php'><button class='btn btn-primary btn-block'>Scan another</button></a></td>
+        <td width='50%' style='padding: 10px;'><form action='admin_viewplant.php' method='post' class='input-group'>
+                <input type='hidden' name='plantid' value='$plant'>
+                <button class='btn btn-positive btn-block' type='submit' name='viewplant' value='viewplant'>Back to plant view</button></form></td>
+        </tr></tbody></table>";
+        }
+?>
+
     </div>
 
   </body>
