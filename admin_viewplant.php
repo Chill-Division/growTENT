@@ -86,7 +86,7 @@ else if (strlen($plantresults[0]['date_of_disposal'] > 1)) {
 else {
 	// But if it wasn't harvested then show todays date
 	$datetime2 = date_create("now",timezone_open("Pacific/Auckland"));
-	$age_language = "old";
+	$age_language = " old";
 	}
 $daysold = date_diff($datetime1, $datetime2);
 
