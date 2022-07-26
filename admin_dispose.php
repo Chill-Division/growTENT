@@ -12,13 +12,14 @@ if($_POST['submitdisposal']=='submitdisposal'){
 	$newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
 	// The first thing we want to do is add a note for the plant so it'll show up in the View Plant history
 	// If we have custom notes we want to include those too
-	if (strlen($_POST['newnotes'] > 1)) {
-		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason. $newnotes')";
+	if (strlen($_POST['newnotes'] > 2)) {
+		$full_disposal_notes = "Plant has been disposed of - $disposal_reason. $newnotes";
 		}
         else {
-		$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
+		$full_disposal_notes = "Plant has been disposed of - $disposal_reason";
 		}
         // Now we submit the initial disposal note for the plant into the database
+	$updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$full_disposal_notes')";
         if ($result = mysqli_query($con, $updatesql)) {
                 $savesuccess = 'true';
                 }
@@ -104,6 +105,7 @@ echo "        </select>
 	}
 
 else {
+	print_r($newnotes);
         echo "  <table width='100%'><tbody width='100%'><tr width='100%'>
         <td width='50%' style='padding: 10px;'><a href='admin_scanplant.php'><button class='btn btn-primary btn-block'>Scan another</button></a></td>
         <td width='50%' style='padding: 10px;'><form action='admin_viewplant.php' method='post' class='input-group'>
