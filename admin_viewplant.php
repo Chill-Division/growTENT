@@ -168,7 +168,7 @@ else {
 	 </div>
          <div class="input-row">
           <label>Spawn date: </label>
-          <input type="text" placeholder="Date of spawn" name="date_of_spawn" readonly value="<?php echo $plantresults[0]['date_of_spawn'] . " (" . $daysold->format('%a days old') . ")";   ?>">
+          <input type="text" placeholder="Date of spawn" name="date_of_spawn" readonly value="<?php echo $plantresults[0]['date_of_spawn'] . " (" . $daysold->format('%a days') . $age_language . ")";   ?>">
 	 </div>
          <div class="input-row">
           <label>Last moved: </label>
