@@ -27,17 +27,15 @@ else {
 $date = date('Y-m-d');
 
 // Check to see if we've got notes to save
-if (strlen($_POST['savenotes'] > 1)) {
+$newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
+if (strlen($newnotes > 3)) {
 	// We've got something submitted, so check the length of newnotes
-	$newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
-	if (strlen($newnotes > 1 )) {
-		$sql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$newnotes')";
-		if ($result = mysqli_query($con, $sql)) {
-			// echo "Returned rows are: " . mysqli_num_rows($result);
-			// Free result set
-			//mysqli_free_result($result);
-			$savesuccess = 'true';
-			}
+	$sql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$newnotes')";
+	if ($result = mysqli_query($con, $sql)) {
+		// echo "Returned rows are: " . mysqli_num_rows($result);
+		// Free result set
+		//mysqli_free_result($result);
+		$savesuccess = 'true';
 		}
 	else {
 		$savesuccess = 'failed';

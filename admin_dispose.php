@@ -12,23 +12,23 @@ if($_POST['submitdisposal']=='submitdisposal'){
 	$newnotes = filter_var($_POST['newnotes'], FILTER_SANITIZE_STRING);
 
 	// The first thing we want to do is add a note for the plant so it'll show up in the View Plant history
-        $updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
-        if ($result = mysqli_query($con, $updatesql)) {
+        $disposalsql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', 'Plant has been disposed of - $disposal_reason')";
+        if ($result = mysqli_query($con, $disposalsql)) {
                 $savesuccess = 'true';
                 }
 
 	// If we have custom notes we want to include those too
-	if (strlen($_POST['newnotes'] > 2)) {
+	if (strlen($newnotes > 2)) {
 	        // Now we submit the custom disposal note for the plant into the database
-	        $updatesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$newnotes')";
-	        if ($result = mysqli_query($con, $updatesql)) {
+	        $notesql="INSERT INTO plant_notes (plant_uniqueid, note_date, notes) VALUES ('$plant', '$date', '$newnotes')";
+	        if ($result = mysqli_query($con, $notesql)) {
 	                $savesuccess = 'true';
 	                }
 		}
 
 	// Then we set the Inventory status so it's marked as no longer being alive
-        $updatesql="UPDATE inventory SET current_state='Disposed of - $disposal_reason',is_alive='0',date_of_disposal='$date' WHERE plant_uniqueid='$plant'";
-        if ($result = mysqli_query($con, $updatesql)) {
+        $statussql="UPDATE inventory SET current_state='Disposed of - $disposal_reason',is_alive='0',date_of_disposal='$date' WHERE plant_uniqueid='$plant'";
+        if ($result = mysqli_query($con, $statussql)) {
                 $savesuccess = 'true';
                 }
         }
