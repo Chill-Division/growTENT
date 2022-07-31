@@ -115,6 +115,11 @@ include 'tpl/sql.php';
               <strong>Start new season from seed</strong>
             </a>
           </li>
+          <li class="table-view-cell">
+            <a class="navigate-right" href="admin_editseason.php">
+              <strong>Modify season details / wrap-up harvest</strong>
+            </a>
+          </li>
           <li class="table-view-divider"></li>
           <li class="table-view-divider"></li>
           <li class="table-view-cell">

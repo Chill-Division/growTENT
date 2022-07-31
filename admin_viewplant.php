@@ -155,7 +155,7 @@ else {
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
       <p class="content-padded">View plant details and update individual values</p>
-      <?php if($savesuccess=='true'){ echo "<p class='content-padded'>Plant saved successfully</p>";} ?>
+      <?php if($savesuccess=='true'){ echo "<p class='content-padded' align='center'><font color='green'>Plant saved successfully</font></p>";} ?>
       <?php if($isalive=='No'){ echo "<p class='content-padded' align='center'><font color='red'><strong>This plant is not alive. Changes disabled.</strong></font></p>";} ?>
       <?php //if (isset ($plant)) { QRcode::png('some'); } ?>
       <div class="card">
