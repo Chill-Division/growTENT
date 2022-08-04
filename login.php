@@ -20,7 +20,7 @@ include 'tpl/sql.php';
 <form action="admin.php" method='post'>
 <h1>Please enter your password:</h1>
 <ul>
- <li><input style="font-size: 20px;" name='pass' type='password'></li>
+ <li><input style="font-size: 20px;" name='pass' type='password' autofocus></li>
 </ul>
 <p align='center'><input type='submit' name='submit' value='Login'></p>
 </form>

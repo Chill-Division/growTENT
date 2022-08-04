@@ -90,7 +90,7 @@ include 'tpl/sql.php';
           </li>
           <li class="table-view-cell">
             <a class="navigate-right" href="admin_reporting.php">
-              <strong># View historical plants</strong>
+              <strong>View historical plants</strong>
             </a>
           </li>
           <li class="table-view-divider"></li>
