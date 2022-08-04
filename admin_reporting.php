@@ -41,7 +41,18 @@ include 'tpl/sql.php';
       <p class="content-padded" align='center'>Reporting / View historical plants</p>
 <?php if($savesuccess=='true'){ echo "<p class='content-padded' align='center'><font color='red'>Saved!</font></p>";} ?>
       <div class="card">
-	<p>Something in here for harvested, disposed of etc etc...</p>
+        <ul class="table-view">
+          <li class="table-view-cell">
+            <a class="navigate-right" href="admin_reporting_harvested.php">
+              <strong>View harvested inventory</strong>
+            </a>
+          </li>
+          <li class="table-view-cell">
+            <a class="navigate-right" href="admin_reporting_disposed.php">
+              <strong>View plants previously disposed of</strong>
+            </a>
+          </li>
+	</ul>
       </div>
     </div>
 
