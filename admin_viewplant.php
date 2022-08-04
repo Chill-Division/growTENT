@@ -254,7 +254,7 @@ if($isalive=='Yes'){
 	<table width='100%'><tbody width='100%'><tr width='100%'>
 	<td width='50%' style='padding: 10px;'><form action='admin_dispose.php' method='post' class='input-group'>
                 <input type='hidden' name='plantid' value='$plant'>
-		<button class='btn btn-negative btn-block'>Dispose of plant</button>
+		<button class='btn btn-negative btn-block'>Dispose of plant</button></form>
 	</td>
 	<td width='50%' style='padding: 10px;'><form action='admin_harvest.php' method='post' class='input-group'>
 		<input type='hidden' name='plantid' value='$plant'>
