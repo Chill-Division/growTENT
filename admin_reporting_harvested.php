@@ -57,7 +57,7 @@ $cultivars = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	echo "  <ul class='table-view'>\n";
 	foreach($row as $currentrow) {
-		echo "  <li class='table-view-cell'>\n<a href='admin_viewplant.php?p=" . $currentrow['plant_uniqueid'] . "' class='navigate-right'>" . $currentrow['cultivar'] . ", Season " . $currentrow['season_id'] . ", Location: " . $currentrow['where_is_it_now'] . ", Plant # " . $currentrow['plant_num'] . ", Unique ID: " . $currentrow['plant_uniqueid'] . "</a></li>";
+		echo "  <li class='table-view-cell'>\n<a href='admin_viewplant.php?p=" . $currentrow['plant_uniqueid'] . "' class='navigate-right'>" . $currentrow['cultivar'] . ", WW " . $currentrow['harvest_ww'] . ", Harvested: " . $currentrow['date_of_harvest'] . ", Plant # " . $currentrow['plant_num'] . ", Unique ID: " . $currentrow['plant_uniqueid'] . "</a></li>";
 //		echo "  <li class='table-view-cell'>" . $currentrow[cultivar_name] . " " . $currentrow[plant_uniqueid] . "<a href='admin_viewplant.php?p=" . $currentrow[plant_uniqueid] . "' class='navigate-right'>View</a></li>";
 	}
 	echo "</ul><br />\n";
