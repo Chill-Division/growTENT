@@ -1,6 +1,13 @@
 <?php
 require_once('tpl/config.php');
 require_once('tpl/sql.php');
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$visitor_name = filter_var($_POST['visitor_name'], FILTER_SANITIZE_STRING);
+$visitor_phone = filter_var($_POST['visitor_phone'], FILTER_VALIDATE_INT);
+$visitor_purpose = filter_var($_POST['visitor_purpose'], FILTER_SANITIZE_STRING);
+$visitor_escorted_by = filter_var($_POST['escorted_by'], FILTER_SANITIZE_STRING);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,9 +53,9 @@ require_once('tpl/sql.php');
          <label>Purpose for visit:</label>
          <input type="text" placeholder="Facility tour" id="visitor_purpose" name="visitor_purpose">
          </div>
-         <div class="input-row"> 
+         <div class="input-row">
          <label>Escorted by:</label>
-	 <select name='escorted_by' id='escorted_by'>
+	 <select name='escorted_by' id='escorted_by' style="margin-top: 3px; margin-bottom: 3px; float: left; width: 63%; margin-right: 10px;">
 	<?php
         foreach($escortingstaff as $currentstaff) {
             echo "<option value='" . $currentstaff . "'>" . $currentstaff . "</option>\n";
