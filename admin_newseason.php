@@ -111,7 +111,7 @@ if($currentyear>$currentseasonyear) {
 
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
-      <p class="content-padded" align="center">Add a new cultivar to be utilized in the facility</p>
+      <p class="content-padded" align="center">Start a new season based on seeds or introduced mothers</p>
       <div class="card">
 	<form action='admin_newseason_print.php' method='post'>
 	<label>Facility for cultivation:</label>

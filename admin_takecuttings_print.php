@@ -34,6 +34,8 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	// variables needed for the inserts
 	$current_row_for_insert = 0;
 	$current_row_on_page = 0;
+	// Add a HR for the top most part of the page
+	echo "<hr />";
 	while ($current_row_for_insert < $newplants) {
 		// Make a UniqueID for the plant
 		$plant_uniqueid = uniqid('p', true);
@@ -60,8 +62,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 	        if ($result = mysqli_query($con, $sql)) {
 
 		//  echo "New record created successfully";
-                // So now we can make the label(s). Start with a HR
-                echo "<hr />";
+                // So now we can make the label(s).
 		// For that we're going to want a table
 		echo "<table style='font-family: monospace; padding: 0;'>
   <tr>
