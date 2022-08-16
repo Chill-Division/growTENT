@@ -1,8 +1,12 @@
+<?php
+require_once('tpl/config.php');
+require_once('tpl/sql.php');
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>growTENT :: Start new season</title>
+    <title>Facility sign-in</title>
 
     <!-- Sets initial viewport load and disables zooming  -->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
