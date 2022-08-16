@@ -3,11 +3,22 @@ require_once('tpl/config.php');
 require_once('tpl/sql.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-$visitor_name = filter_var($_POST['visitor_name'], FILTER_SANITIZE_STRING);
-$visitor_phone = filter_var($_POST['visitor_phone'], FILTER_VALIDATE_INT);
-$visitor_purpose = filter_var($_POST['visitor_purpose'], FILTER_SANITIZE_STRING);
-$visitor_escorted_by = filter_var($_POST['escorted_by'], FILTER_SANITIZE_STRING);
-}
+	$visitor_name = filter_var($_POST['visitor_name'], FILTER_SANITIZE_STRING);
+	$visitor_phone = filter_var($_POST['visitor_phone'], FILTER_VALIDATE_INT);
+	$visitor_purpose = filter_var($_POST['visitor_purpose'], FILTER_SANITIZE_STRING);
+	$visitor_escorted_by = filter_var($_POST['escorted_by'], FILTER_SANITIZE_STRING);
+
+        $sql="INSERT INTO visitors (Name, Phone, Purpose, EscortedBy) VALUES ('$visitor_name', '$visitor_phone', '$visitor_purpose', '$visitor_escorted_by')";
+        if ($result = mysqli_query($con, $sql)) {
+                // echo "Returned rows are: " . mysqli_num_rows($result);
+                // Free result set
+                //mysqli_free_result($result);
+                $savesuccess = 'true';
+                }
+        else {
+                $savesuccess = 'failed';
+                }
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,6 +50,7 @@ $visitor_escorted_by = filter_var($_POST['escorted_by'], FILTER_SANITIZE_STRING)
     <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
     <div class="content">
       <p class="content-padded" align="center">Please enter your details to sign in to the facility</p>
+<?php if($savesuccess=='true'){ echo "<p class='content-padded' align='center'><font color='green'>Details saved successfully</font></p>";} ?>
       <div class="card">
 	<form action='index.php' method='post'>
          <div class="input-row">
