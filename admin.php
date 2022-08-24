@@ -95,8 +95,13 @@ include 'tpl/sql.php';
           </li>
           <li class="table-view-divider"></li>
           <li class="table-view-cell">
-            <a class="navigate-right" href="admin_manifest.php">
-              <strong># Generate shipping manifest</strong>
+            <a class="navigate-right" href="admin_create_manifest.php">
+              <strong>Generate shipping manifest</strong>
+            </a>
+          </li>
+          <li class="table-view-cell">
+            <a class="navigate-right" href="admin_amend_manifest.php">
+              <strong>Admend / complete manifest</strong>
             </a>
           </li>
           <li class="table-view-cell">

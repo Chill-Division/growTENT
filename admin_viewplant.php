@@ -187,7 +187,7 @@ else {
          </div>
          <div class="input-row">
           <label>Facility: </label>
-          <input type="text" placeholder="Facility of cultivation" name="faceilityname" readonly value="<?php echo $plantresults[0]['facilityname'];?>">
+          <input type="text" placeholder="Facility of cultivation" name="facilityname" readonly value="<?php echo $plantresults[0]['facilityname'];?>">
          </div>
          <div class="input-row">
           <label>Plant UID: </label>
