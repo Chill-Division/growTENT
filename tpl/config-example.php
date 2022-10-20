@@ -1,15 +1,15 @@
 <?php
 // Configuration file for setting rooms / values used in dropdowns etc
 // Config starts here
-$domainURL = 'skyman.co.nz';
+$domainURL = 'example-domain.com';
 $installdir = 'growTENT';
 $upload_dir = "uploads/";
 $backup_dir = "backups/";
 
-$facilities = array("64HSV", "Demo Facility");
+$facilities = array("Kerikeri1", "Dunedin1", "Dunedin2", "Rotorua 1");
 $rooms = array("Mother1", "Mother2", "Nursery1", "Vege1", "Vege2", "Flower1", "Flower2");
 $treatments = array("Mite-E", "Mite-A", "Hyper-Mite", "Aphidius", "Ladybirds", "Foliar - Custom mix 1");
-$cultivars = array("Amnesia Fast", "White Widow", "White Rhino", "Maine Coon Cat", "Peyote Zkittlez", "Color of Space", "Rare Dankness", "Serious Kush", "Future #1", "Captain Future", "Apricot Oreoz", "Big Bazooka", "Tart Pops", "Black Cherry Pie", "Mandarin Zkittlez");
+$cultivars = array("White Widow", "White Rhino", "Northern Lights");
 $disposalreasons = array("Nutrient issues", "Root issues", "Bugs", "WPM", "Plant dried out or lack of water", "Mother plant became too big", "Mother plant too old", "Other physical accident", "Other - Specified in notes");
 
 // How many reservoirs per room (Used for nute / pH logging)

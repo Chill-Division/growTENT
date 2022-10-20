@@ -4,3 +4,4 @@ uploads/*
 qrcodes/*.png
 tpl/auth.php
 tpl/sql.php
+tpl/config.php
