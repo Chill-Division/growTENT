@@ -179,11 +179,11 @@ else {
 
          <div class="input-row">
           <label>Season: </label>
-          <input type="text" placeholder="Season" name="season" readonly value="<?php echo $plantresults[0]['season_id'];?>">
+          <input type="text" placeholder="Season" name="season" value="<?php echo $plantresults[0]['season_id'];?>">
          </div>
          <div class="input-row">
           <label>Plant #: </label>
-          <input type="text" placeholder="Plant number" name="plant_num" readonly value="<?php echo $plantresults[0]['plant_num'];?>">
+          <input type="text" placeholder="Plant number" name="plant_num" value="<?php echo $plantresults[0]['plant_num'];?>">
          </div>
          <div class="input-row">
           <label>Facility: </label>
@@ -234,8 +234,11 @@ if (isset($plantresults[0]['harvest_dw'])) {
           <div class='content-padded'><label>Add more notes: </label>
 	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="3"></textarea></div>
 	  <button class="btn btn-positive btn-block" type="submit" name="savenotes" value="savenotes">Save notes</button>
+	  <table width='100%'><tbody width='100%'><tr width='100%'>
+	   <td width='50%' style='padding: 10px;'><button class='btn btn-positive btn-block' type='submit' name='adjustseason' value='adjustseason'>Adjust season / Plant</button></td>
+	   <td width='50%' style='padding: 10px;'><button class='btn btn-primary btn-block' type='submit' name='reprint' value='reprint'>Reprint label</button></td>
+	  </tr></tbody></table>
 	</form>
-        <button class="btn btn-positive btn-block">Reprint label</button>
 <?php
 if($isalive=='Yes'){
 	// Plant is alive so give the option to move, take cuttings, dispose of, or harvest it
