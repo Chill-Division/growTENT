@@ -56,7 +56,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['newplants']) > 0)) {
 		$current_row_on_page++;
 
 		//$sql="INSERT INTO inventory (facilityid, date_of_spawn, plant_uniqueid, season_id, plant_num, where_is_it_now, current_state, cultivar) VALUES ('$facilityid','$date','$plant_uniqueid',$seasonid,'$current_row_for_insert','Nursery','In the early life stages','$cultivarid')";
-		$sql="INSERT INTO inventory (facilityname, date_of_spawn, plant_uniqueid, where_is_it_now, current_state, cultivar, mother_uniqueid) VALUES ('$facility', '$date', '$plant_uniqueid', 'Clone dome', 'In the early stages of life', '$cultivar', '$mother_plantid')";
+		$sql="INSERT INTO inventory (facilityname, date_of_spawn, plant_uniqueid, where_is_it_now, current_state, cultivar, mother_uniqueid, plant_num) VALUES ('$facility', '$date', '$plant_uniqueid', 'Clone dome', 'In the early stages of life', '$cultivar', '$mother_plantid', '$current_row_for_insert')";
 
 		//if (mysqli_query($conn, $sql)) {
 	        if ($result = mysqli_query($con, $sql)) {
