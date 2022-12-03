@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <p class="content-padded" align="center">Please enter your details to sign in to the facility</p>
 <?php if($formsubmitted=='true'){ echo "<p class='content-padded' align='center'>" . $submitmsg . "</p>";} ?>
       <div class="card">
-	<form action='index.php' method='post' autocomplete='off'>
+	<form action='index.php' method='post' autocomplete='off' onsubmit="return checkAllChecked()">
          <div class="input-row">
 	 <label>Name:</label>
          <input type="text" placeholder="John Smith" id="visitor_name" name="visitor_name" <?php if ($agreed_sum != $agreed_all) { echo "value='$visitor_name'"; } ?>>
@@ -94,14 +94,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 	 </select>
 	 </div>
-	 <p><input type="checkbox" id="haz_light" name="haz_light"> I acknowledge that immediate site hazards include but are not limited to loud noise and bright lights, and I can optionally request hearing / eye protection at any time.</p>
-	 <p><input type="checkbox" id="haz_co2" name="haz_co2"> I acknowledge that in the event the CO2 warning light is on, I will not enter the rooms, for risk of asphyxiation.</p>
-	 <p><input type="checkbox" id="haz_gloves" name="haz_gloves"> I acknowledge I may be asked to wear additional protective equipment (such as masks / gloves) to enter certain portions of the facility, for the protection of the plants from externally introduced pests/viruses.</p>
-	 <p><input type="checkbox" id="haz_flame" name="haz_flame"> I acknowledge that some materials may be flammable, and have been shown the way to safely exit the facility if required.</p>
-	 <button class="btn btn-positive btn-block" type="submit" name="submit" value="submit">Submit details</button>
+	 <p><input type="checkbox" id="haz_light" name="haz_light" onclick="checkAllChecked()"> I acknowledge that immediate site hazards include but are not limited to loud noise and bright lights, and I can optionally request hearing / eye protection at any time.</p>
+	 <p><input type="checkbox" id="haz_co2" name="haz_co2" onclick="checkAllChecked()"> I acknowledge that in the event the CO2 warning light is on, I will not enter the rooms, for risk of asphyxiation.</p>
+	 <p><input type="checkbox" id="haz_gloves" name="haz_gloves" onclick="checkAllChecked()"> I acknowledge I may be asked to wear additional protective equipment (such as masks / gloves) to enter certain portions of the facility, for the protection of the plants from externally introduced pests/viruses.</p>
+	 <p><input type="checkbox" id="haz_flame" name="haz_flame" onclick="checkAllChecked()"> I acknowledge that some materials may be flammable, and have been shown the way to safely exit the facility if required.</p>
+	 <button class="btn btn-positive btn-block" type="submit" name="submit" value="submit" id="submit-button" disabled>Submit details</button>
+         <p id="error-message" style="display:none; color:red;">Please read and acknowledge all hazard warnings</p>
 	</form>
       </div>
     </div>
-
+<script>
+// JavaScript function to check whether all checkboxes are checked
+function checkAllChecked() {
+    // Check if all checkboxes are checked
+    if (!document.getElementById('haz_light').checked ||
+        !document.getElementById('haz_co2').checked ||
+        !document.getElementById('haz_gloves').checked ||
+        !document.getElementById('haz_flame').checked) {
+        // If not, show the error message and disable the submit button
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('submit-button').disabled = true;
+//        return false;
+    } else {
+        // If they are all checked, hide the error message and enable the submit button
+        document.getElementById('error-message').style.display = 'none';
+        document.getElementById('submit-button').disabled = false;
+//        return true;
+    }
+    return false;
+}
+</script>
   </body>
 </html>
