@@ -234,15 +234,22 @@ if (isset($plantresults[0]['harvest_dw'])) {
           <div class='content-padded'><label>Add more notes: </label>
 	  <textarea name="newnotes" id="newnotes" maxlength="2048" rows="3"></textarea></div>
 	  <button class="btn btn-positive btn-block" type="submit" name="savenotes" value="savenotes">Save notes</button>
-	  <table width='100%'><tbody width='100%'><tr width='100%'>
-	   <td width='50%' style='padding: 10px;'><button class='btn btn-positive btn-block' type='submit' name='adjustseason' value='adjustseason'>Adjust season / Plant</button></td>
-	   <td width='50%' style='padding: 10px;'><button class='btn btn-primary btn-block' type='submit' name='reprint' value='reprint'>Reprint label</button></td>
-	  </tr></tbody></table>
 	</form>
 <?php
 if($isalive=='Yes'){
 	// Plant is alive so give the option to move, take cuttings, dispose of, or harvest it
 	echo "<table width='100%'><tbody width='100%'><tr width='100%'>
+	<td width='50%' style='padding: 10px;'>
+		<button class='btn btn-positive btn-block' type='submit' name='adjustseason' value='adjustseason'>Adjust season / Plant</button></td>
+	<td width='50%' style='padding: 10px;'>
+		<form action='admin_takecuttings_print.php' method='post' class='input-group'>
+			<input type='hidden' name='plantid' value='$plant'>
+			<button class='btn btn-primary btn-block' type='submit' name='reprint' value='reprint'>Reprint label</button>
+		</form>
+	</td>
+ 	</tr></tbody></table>
+	
+	<table width='100%'><tbody width='100%'><tr width='100%'>
 	<td width='50%' style='padding: 10px;'><form action='admin_moveplant.php' method='post' class='input-group'>
           <input type='hidden' name='plantid' value='$plant'>
           <button class='btn btn-positive btn-block' type='submit' name='moveplant' value='moveplant'>Move plant</button>
