@@ -18,7 +18,7 @@ if ((strlen($_POST['submit']) > 1) && (strlen($_POST['cultivar']) > 1)) {
         //$cultivarid = mysqli_insert_id();
 	mysqli_close($con);
 	$savesuccess == 'true';
-        }
+}
 ?>
 
 
@@ -77,7 +77,7 @@ function onScanSuccess(decodedText, decodedResult) {
 html5QrcodeScanner.render(onScanSuccess);
 
 </script>
-	<form action='admin_relabel.php' method='post'>
+	<form action='admin_viewplant.php' method='post'>
 	  <input type="text" placeholder="Scan barcode or type Plant UniqueID" name="plant_uniqueid" id='plant_uniqueid'>
 	  <button class="btn btn-positive btn-block" type="submit" name="search" value="search">Search</button>
 	</form>
